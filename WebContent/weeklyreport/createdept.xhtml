@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+</h:head>
+
+<h:body>
+	<p:tooltip />
+	<h:form name="form" id="form">
+
+		<ui:include src="/common/header.xhtml"></ui:include>
+		<ui:include src="/common/menu.xhtml"></ui:include>
+
+		<h:panelGroup layout="block" styleClass="main_div1">
+			<p:messages id="msgs" showDetail="true" autoUpdate="true"
+				closable="true" />
+			<f:event listener="#{weeklyReportBean.showList}" type="preRenderView"></f:event>
+
+
+			<h:panelGroup layout="block" styleClass="main_div2">
+				<h1>
+					<h:outputText value="Create New Dept" />
+				</h1>
+
+
+				<h:panelGroup layout="block" styleClass="left_col">
+
+					<h:panelGroup layout="block" styleClass="inner_left_col">
+						<h:outputText value="Dept Name:*" />
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="inner_right_col">
+						<p:inputText id="meetname" value="#{weeklyReportBean.deptName}"
+							style="margin-bottom:7px; margin-top:7px;" required="true">
+
+
+						</p:inputText>
+
+						<p:message for="meetname" display="tooltip" />
+
+					</h:panelGroup>
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" styleClass="left_col">
+
+					<h:panelGroup layout="block" styleClass="inner_left_col">
+						<h:outputText value="Email Ids:*" />
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="inner_right_col">
+						<p:inputText id="apprverE" required="true"
+							requiredMessage="#{msg['lbl.empty']}"
+							value="#{weeklyReportBean.emailId}"
+							validatorMessage="#{msg['lbl.validemail']}">
+							<f:validateRegex
+								pattern="^(\s?[^\s,]+@[^\s,]+\.[^\s,]+\s?,)*(\s?[^\s,]+@[^\s,]+\.[^\s,]+)$" />
+							<p:ajax update="msgs" event="blur" />
+						</p:inputText>
+					</h:panelGroup>
+				</h:panelGroup>
+
+
+
+
+
+				<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+				<p:spacer height="10px;" />
+				<h:panelGroup layout="block" styleClass="mcenter">
+					<p:commandButton value="Save" action="#{weeklyReportBean.saveDept}"
+						ajax="false" validateClient="true"
+						style="font-size: 12px; font-weight: bold; float:left;"
+						update=":form:msgs" />
+
+					<p:commandButton value="Clear" action="#{weeklyReportBean.clear}"
+						ajax="false" validateClient="true"
+						style="font-size: 12px; font-weight: bold; float:left;"
+						update=":form:msgs" />
+				</h:panelGroup>
+
+
+
+				<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+
+				<p:spacer height="10px" />
+				<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+
+				<p:dataTable var="deptDt" value="#{weeklyReportBean.deptList}"
+					id="deptId" rowKey="#{weeklyReportBean.deptID}"
+					rowIndexVar="rowIndex" rows="10" paginator="true" editable="true">
+
+					<p:ajax event="rowEdit" listener="#{weeklyReportBean.onRowEdit}"
+						update=":form:msgs" />
+					<p:ajax event="rowEditCancel"
+						listener="#{weeklyReportBean.onRowCancel}" update=":form:msgs" />
+
+
+					<p:column headerText="Dept ID">
+						<h:outputText value="#{deptDt.deptID}" />
+					</p:column>
+
+					<p:column headerText="Dept/Team Name">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{deptDt.deptName}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText  value="#{deptDt.deptName}" />
+							</f:facet>
+						</p:cellEditor>
+
+					</p:column>
+
+					<p:column headerText="EmailID">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{deptDt.emailIds}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{deptDt.emailIds}"	validatorMessage="#{msg['lbl.validemail']}">
+							<f:validateRegex
+								pattern="^(\s?[^\s,]+@[^\s,]+\.[^\s,]+\s?,)*(\s?[^\s,]+@[^\s,]+\.[^\s,]+)$" />
+							<p:ajax update=":form:msgs" event="blur" />
+						</p:inputText>
+							</f:facet>
+						</p:cellEditor>
+
+
+					</p:column>
+
+
+					<p:column headerText="Edit" style="width:20px;text-align:center">
+
+						<p:rowEditor />
+					</p:column>
+				</p:dataTable>
+
+			</h:panelGroup>
+		</h:panelGroup>
+		<ui:include src="/common/footer.xhtml"></ui:include>
+	</h:form>
+
+
+
+
+</h:body>
+
+</html>

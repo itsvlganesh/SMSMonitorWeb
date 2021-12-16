@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<script type="text/javascript">
+		function start() {
+			PF('statusDialog').show();
+		}
+
+		function stop() {
+			PF('statusDialog').hide();
+		}
+	</script>
+</h:head>
+
+<h:body>
+	
+		<p:tooltip />
+		<p:dialog modal="true" widgetVar="statusDialog" header="Validating.."
+			draggable="false" closable="false" resizable="false">
+			<p:graphicImage
+				style="background: url(../images/ajaxloadingbar.gif)  center no-repeat !important; padding:10px 0px 7px 55px !important; margin: 10px 0px 20px 0px;" />
+		</p:dialog>
+		<h:form name="form" id="form">
+			<ui:include src="/common/loginheader.xhtml"></ui:include>
+			<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+			<p:spacer height="20px;" />
+			<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+			<h:panelGroup layout="block" styleClass="login_main_div1">
+				<p:messages id="msgs"  showDetail="false" autoUpdate="true"
+					closable="true" />
+				<h:panelGroup layout="block" styleClass="main_div2">
+					<h:outputText value="#{msg['lbl.note']}"
+						style="color:red;font-size: larger;font-weight: bold" />
+					<h1
+						style="background: url(../images/user.png) left center no-repeat !important; padding: 10px 0px 7px 55px !important; margin: 10px 0px 20px 0px;">
+						<h:outputText value="Login" />
+					</h1>
+
+					<h:panelGroup layout="block" styleClass="login_col_1">
+						<h:outputText value="#{msg['lbl.loginuser']}" />
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="login_col_2">
+						<p:inputText id="user" value="#{loginBean.empNo}" required="true"
+							requiredMessage="EmpNo can't be an empty value.">
+							
+							<p:ajax update="user" event="blur" />
+						</p:inputText>
+
+						<p:message for="user" display="tooltip" />
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="login_col_1">
+						<h:outputText value="#{msg['lbl.loginpass']}" />
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="login_col_2">
+						<p:password id="pass" value="#{loginBean.password}"
+							required="true"
+							requiredMessage="Password Can't be an empty value.">
+
+						</p:password>
+						<p:message for="pass" display="tooltip" />
+					</h:panelGroup>
+
+
+					<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+					<p:spacer height="10px;" />
+					<h:panelGroup layout="block" styleClass="tealri">
+						<p:commandButton value="Login"
+							action="#{loginBean.checkAvailablity}" ajax="false"
+							update=":form:msgs"
+							onclick="PrimeFaces.monitorDownload(start, stop);"
+							onstart="showAjaxActive();" onstop="hideAjaxActive();">
+
+						</p:commandButton>
+
+					</h:panelGroup>
+					<h:panelGroup layout="block" styleClass="tealle">
+						<!-- <p:commandLink value="Create New User"
+							action="#{userProfBean.createNew}" update=":form:msgs" ajax="false" immediate="true" /> -->
+						<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+						<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+
+						<h:panelGroup layout="block">
+							<h:outputText value="#{msg['lbl.mandatory']}"
+								style="color:red;font-size: larger;font-weight: bold" />
+						</h:panelGroup>
+					</h:panelGroup>
+					<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+				</h:panelGroup>
+				<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+			</h:panelGroup>
+			<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+			<p:spacer height="20px;" />
+			<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+			<ui:include src="/common/footer.xhtml"></ui:include>
+		</h:form>
+	
+</h:body>
+
+</html>

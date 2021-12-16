@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:#services#login.xhtml"
+  PATH="/services/login.xhtml" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#services#login.xhtml:0" NAME="item"
+   PATH="/services/login.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="success::#services#dailyreport.xhtml"
+    NAME="output" PATH="/services/dailyreport.xhtml"
+    TARGET="rules:#services#dailyreport.xhtml" TITLE="success" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#services#dailyreport.xhtml"
+  PATH="/services/dailyreport.xhtml" SHAPE="240,33,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#services#dailyreport.xhtml:0" NAME="item"
+   PATH="/services/dailyreport.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="home::#services#welcome.xhtml" NAME="output"
+    PATH="/services/welcome.xhtml"
+    TARGET="rules:#services#welcome.xhtml" TITLE="home" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#services#welcome.xhtml"
+  PATH="/services/welcome.xhtml" SHAPE="448,17,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>

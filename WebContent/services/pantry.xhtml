@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+</h:head>
+
+<h:body>
+	<h:form name="form" id="form">
+		<ui:include src="/common/header.xhtml"></ui:include>
+		<ui:include src="/common/menu.xhtml"></ui:include>
+
+		<h:panelGroup layout="block" styleClass="main_div1">
+
+			<h:panelGroup layout="block" styleClass="main_div2">
+				<h1>
+					<h:outputText value="Pantry Products" />
+				</h1>
+
+				<p:dataGrid var="stationery" value="#{dataGridView.cars}"
+					columns="3" layout="grid" rows="12" paginator="true" id="cars"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="6,12,16">
+
+					<f:facet name="header">
+           Pantry Items
+        </f:facet>
+
+					<p:panel header="#{car.id}" style="text-align:center">
+						<h:panelGrid columns="1" style="width:100%">
+							<p:graphicImage name="demo/images/car/#{car.brand}.gif" />
+
+							<h:outputText value="#{car.year}" />
+
+							<p:commandLink update=":form:carDetail"
+								oncomplete="PF('carDialog').show()" title="View Detail">
+								<h:outputText styleClass="ui-icon ui-icon-search"
+									style="margin:0 auto;" />
+								<f:setPropertyActionListener value="#{car}"
+									target="#{dataGridView.selectedCar}" />
+							</p:commandLink>
+						</h:panelGrid>
+					</p:panel>
+
+
+
+
+					<p:dialog header="Car Info" widgetVar="carDialog" modal="true"
+						showEffect="fade" hideEffect="fade" resizable="false">
+						<p:outputPanel id="carDetail" style="text-align:center;">
+							<p:panelGrid columns="2"
+								rendered="#{not empty dataGridView.selectedCar}"
+								columnClasses="label,value">
+								<f:facet name="header">
+									<p:graphicImage
+										name="demo/images/car/#{dataGridView.selectedCar.brand}-big.gif" />
+								</f:facet>
+
+								<h:outputText value="Id:" />
+								<h:outputText value="#{dataGridView.selectedCar.id}" />
+
+								<h:outputText value="Year" />
+								<h:outputText value="#{dataGridView.selectedCar.year}" />
+
+								<h:outputText value="Color:" />
+								<h:outputText value="#{dataGridView.selectedCar.color}"
+									style="color:#{dataGridView.selectedCar.color}" />
+
+								<h:outputText value="Price" />
+								<h:outputText value="$#{dataGridView.selectedCar.price}" />
+							</p:panelGrid>
+						</p:outputPanel>
+					</p:dialog>;
+				</p:dataGrid>
+
+
+
+
+
+
+			</h:panelGroup>
+		</h:panelGroup>
+		<ui:include src="/common/footer.xhtml"></ui:include>
+	</h:form>
+
+
+
+
+</h:body>
+
+</html>

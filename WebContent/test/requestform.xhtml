@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+</h:head>
+
+<h:body>
+	<h:form name="form" id="form">
+		<ui:include src="/common/header.xhtml"></ui:include>
+		<ui:include src="/common/menu.xhtml"></ui:include>
+
+		<h:panelGroup layout="block" styleClass="main_div1">
+			<p:messages id="messages" showDetail="true" closable="true" />
+			<f:event listener="#{requestFormBean.showList}" type="preRenderView"></f:event>
+
+
+			<h:panelGroup id="main" layout="block" styleClass="main_div2">
+				<h2>
+					<h:outputText value="#{msg['lbl.empinfo']}" />
+				</h2>
+
+				<h:panelGroup layout="block" styleClass="left_col_sm">
+					<h:panelGroup layout="block" styleClass="inner_left_col_sm">
+						<p:panelGrid styleClass="panelGridCenter"
+							style="border: 1px;width:700px">
+
+							<p:row>
+								<p:column styleClass="brown">
+									<h:outputText value="#{msg['lbl.empno']}" />
+								</p:column>
+								<p:column styleClass="gray">
+									<h:outputText value="#{requestFormBean.empno}"
+										style="font-weight: bold;" />
+								</p:column>
+								<p:column styleClass="brown">
+									<h:outputText value="#{msg['lbl.empName']}" />
+								</p:column>
+								<p:column styleClass="gray">
+									<h:outputText value="#{requestFormBean.empName}"
+										style="font-weight: bold;" />
+								</p:column>
+
+
+							</p:row>
+
+							<p:row>
+								<p:column styleClass="brown">
+									<h:outputText value="#{msg['lbl.shop']}" />
+								</p:column>
+								<p:column styleClass="gray">
+									<h:outputText value="#{requestFormBean.deptName}"
+										style="font-weight: bold;" />
+								</p:column>
+
+								<p:column styleClass="brown">
+									<h:outputText value="#{msg['lbl.shop']}" />
+								</p:column>
+								<p:column styleClass="gray">
+									<h:outputText value="#{requestFormBean.deptName}"
+										style="font-weight: bold;" />
+								</p:column>
+							</p:row>
+
+
+						</p:panelGrid>
+					</h:panelGroup>
+
+
+				</h:panelGroup>
+
+
+				<h:panelGroup layout="block" styleClass="inner_left_col_sm">
+					<p:column styleClass="gray">
+						<p:graphicImage value="#{requestFormBean.myImage}"
+							style="height:100px;width:100px;background:url('../images/profile.jpg') left no-repeat  !important; padding:0px  0px 0px 0px !important " />
+					</p:column>
+				</h:panelGroup>
+
+				<h2>
+					<h:outputText value="#{msg['lbl.requestform']}" />
+				</h2>
+
+			 	<p:panelGrid styleClass="panelGridCent1">
+					<p:row>
+						<p:column styleClass="gray2">
+							<h:outputText value="#{msg['lbl.reqdate']}" />
+						</p:column>
+
+
+						<p:column styleClass="red">
+							<p:calendar id="calendar" value="#{requestFormBean.reportDate}"
+								pattern="MM/dd/yyyy" disabled="true"/>
+
+						</p:column>
+
+					</p:row>
+
+				</p:panelGrid> 
+				
+			
+				
+				
+
+				<h:panelGroup layout="block" styleClass="left_col">
+
+					<p:row>
+						<h:panelGroup layout="block" styleClass="inner_left_col_c">
+							<p:column styleClass="gray2">
+								<h:outputText value="#{msg['lbl.selectrequesttype']}" />
+							</p:column>
+						</h:panelGroup>
+
+						<h:panelGroup layout="block" styleClass="inner_right_col">
+							<p:column styleClass="red">
+								<p:selectOneMenu id="typeOfRequest"
+									value="#{requestFormBean.typeOfRequest}">
+									<f:selectItem itemLabel="New" itemValue="New" />
+									<f:selectItem itemLabel="Revoke" itemValue="Revoke" />
+
+								</p:selectOneMenu>
+							</p:column>
+						</h:panelGroup>
+					</p:row>
+
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" styleClass="left_col">
+					<p:row>
+						<h:panelGroup layout="block" styleClass="inner_left_col_c">
+							<p:column styleClass="gray2">
+								<h:outputText value="#{msg['lbl.chooserequests']}" />
+							</p:column>
+						</h:panelGroup>
+
+						<h:panelGroup layout="block" styleClass="inner_right_col">
+							<p:column styleClass="red">
+								<p:selectCheckboxMenu id="request"
+									panelStyleClass="without-selectall"
+									label="#{msg['lbl.requestchoose']}"
+									value="#{requestFormBean.requests}" filter="true"
+									filterMatchMode="contains" showCheckbox="true" required="true"
+									requiredMessage="*No Request Selected" style="width:125px" >
+
+									<f:selectItems
+										value="#{requestFormBean.requestListDetails.entrySet()}"
+										var="qa" itemLabel="#{qa.value}" itemValue="#{qa.key}" />
+									<!-- 	 <p:ajax event="change"   listener="#{requestFormBean.render}" update="empreqEmail" process="@this"/>
+						 		 -->
+									<f:ajax event="change" execute="@this"
+										listener="#{requestFormBean.render}" render="main" />
+
+
+								</p:selectCheckboxMenu>
+
+
+							</p:column>
+
+							<p:column styleClass="red">
+								<h:outputText value="#{requestFormBean.reqName}" />
+							</p:column>
+
+						</h:panelGroup>
+
+
+
+
+
+					</p:row>
+				</h:panelGroup>
+
+
+				<h:panelGroup layout="block" styleClass="left_col"
+					id="perfbyselection">
+
+					<p:row id="emailid">
+
+						<h:panelGroup layout="block" styleClass="inner_left_col_c">
+
+							<p:column styleClass="gray2">
+								<h:outputText value="#{msg['lbl.empreqEmail']}" />
+							</p:column>
+						</h:panelGroup>
+
+						<h:panelGroup layout="block" styleClass="inner_right_col">
+
+							<p:column styleClass="red">
+								<ui:repeat var="o" value="#{requestFormBean.requests}"
+									varStatus="status">
+									<p:inputText id="empreqEmail" rendered="#{o eq 'EMA1'}"
+										value="#{requestFormBean.userReqEmailId}" />
+
+								</ui:repeat>
+							</p:column>
+
+						</h:panelGroup>
+
+					</p:row>
+
+				</h:panelGroup>
+
+
+				<h:panelGroup layout="block" styleClass="left_col">
+
+					<p:row>
+						<h:panelGroup layout="block" styleClass="inner_left_col_c">
+							<p:column styleClass="gray2">
+								<h:outputText value="#{msg['lbl.empackemail']}" />
+							</p:column>
+						</h:panelGroup>
+
+						<h:panelGroup layout="block" styleClass="inner_right_col">
+
+							<p:column styleClass="red">
+								<p:inputText id="userackemail" required="true"
+									requiredMessage="Need an email for Correspondence."
+									value="#{requestFormBean.usrAckEmail}" validatorMessage="#{msg['lbl.validemail']}">
+									<f:validateRegex
+										pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+									<p:ajax update="messages" event="blur" />
+								</p:inputText>
+							</p:column>
+						</h:panelGroup>
+					</p:row>
+
+				</h:panelGroup>
+
+
+
+
+
+
+
+
+				<h:panelGroup layout="block" styleClass="left_col">
+
+					<p:row>
+						<h:panelGroup layout="block" styleClass="inner_left_col_c">
+							<p:column styleClass="gray2">
+								<h:outputText value="#{msg['lbl.attachment']}" />
+							</p:column>
+						</h:panelGroup>
+
+						<h:panelGroup layout="block" styleClass="inner_right_col">
+							<p:column styleClass="red">
+								<p:fileUpload id="attach" required="true"
+									fileUploadListener="#{requestFormBean.handleFileUpload}"
+									mode="advanced" dragDropSupport="false" update="req"
+									sizeLimit="3000000" auto="true" fileLimit="1"
+									allowTypes="/(\.|\/)(gif|jpe?g|png|txt|pdf|docx)$/" />
+							</p:column>
+							<p:column styleClass="red">
+								<h:outputText id="req" value="#{requestFormBean.fileName}" />
+							</p:column>
+						</h:panelGroup>
+					</p:row>
+
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" styleClass="left_col">
+
+					<p:row>
+						<h:panelGroup layout="block" styleClass="inner_left_col_c">
+							<p:column styleClass="gray2">
+								<h:outputText value="#{msg['lbl.userremarks']}" />
+							</p:column>
+						</h:panelGroup>
+
+						<h:panelGroup layout="block" styleClass="inner_right_col_c">
+							<p:column styleClass="red">
+								<p:editor maxlength="255" id="editor" widgetVar="editorWidget"
+									height="150" controls="bold italic underline strikethrough"
+									value="#{requestFormBean.userRemarks}" />
+							</p:column>
+						</h:panelGroup>
+					</p:row>
+
+				</h:panelGroup>
+
+
+
+				<h:panelGrid styleClass="panelGridCenter">
+
+					<p:row>
+
+						<p:column styleClass="red">
+							<p:commandButton type="submit" value="Submit"
+								action="#{requestFormBean.requestInsert}" ajax="false"
+								icon="ui-icon-check" validateClient="true"
+								style="font-size: 12px; font-weight: bold; float:left;"
+								update=":formL::messages" />
+
+						</p:column>
+
+
+						<p:column styleClass="red">
+							<p:commandButton value="Reset" ajax="false" immediate="true"
+								action="#{requestFormBean.reset}" icon="ui-icon-circle-close"
+								style="font-size: 12px; font-weight: bold; float:left;"
+								update=":formL::messages" />
+
+						</p:column>
+					</p:row>
+
+
+				</h:panelGrid>
+
+
+
+				<p:spacer height="30px"></p:spacer>
+
+
+
+
+
+				<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+				<p:spacer height="10px" />
+				<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+
+
+
+
+
+
+
+			</h:panelGroup>
+
+
+
+		</h:panelGroup>
+		<ui:include src="/common/footer.xhtml"></ui:include>
+	</h:form>
+
+
+
+
+</h:body>
+
+</html>

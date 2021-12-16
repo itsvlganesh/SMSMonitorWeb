@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<script type="text/javascript">
+		function start() {
+			PF('statusDialog').show();
+		}
+
+		function stop() {
+			PF('statusDialog').hide();
+		}
+	</script>
+</h:head>
+
+<h:body>
+	<p:dialog modal="true" widgetVar="statusDialog" header="Please Wait.."
+		draggable="false" closable="false" resizable="false">
+		<p:graphicImage
+			style="background: url(../images/ajaxloadingbar.gif)  center no-repeat !important; padding:10px 0px 7px 55px !important; margin: 10px 0px 20px 0px;" />
+	</p:dialog>
+	<h:form name="form" id="form">
+		<ui:include src="/common/header.xhtml"></ui:include>
+		<ui:include src="/common/menu.xhtml"></ui:include>
+
+		<h:panelGroup layout="block" styleClass="main_div1">
+			<p:messages id="messages" showDetail="false" closable="true" />
+			<f:event listener="#{requestFormBean.loadList}" type="preRenderView"></f:event>
+			<!--they don't know the worth -->
+			<f:event listener="#{requestFormBean.loadListByStatus}"
+				type="preRenderView"></f:event>
+
+			<h:panelGroup layout="block" styleClass="main_div2">
+				<h2>
+					<h:outputText value="#{msg['lbl.requestsearch']}" />
+				</h2>
+
+
+				<h:panelGroup layout="block" styleClass="left_col">
+
+					<p:row>
+						<h:panelGroup layout="block" styleClass="inner_left_col">
+							<p:column>
+								<h:outputText value="#{msg['lbl.empno']}" />
+							</p:column>
+						</h:panelGroup>
+
+						<h:panelGroup layout="block" styleClass="inner_right_col">
+							<p:column>
+								<p:inputText id="empno" value="#{requestFormBean.empNo}" />
+							</p:column>
+						</h:panelGroup>
+					</p:row>
+
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" styleClass="left_col">
+
+					<p:row>
+						<h:panelGroup layout="block" styleClass="inner_left_col">
+							<p:column>
+								<h:outputText value="#{msg['lbl.shop']}" />
+							</p:column>
+						</h:panelGroup>
+
+						<h:panelGroup layout="block" styleClass="inner_right_col">
+							<p:column>
+								<p:selectOneMenu id="request" value="#{requestFormBean.shopNo}">
+									<f:selectItem itemLabel="" itemValue="0" />
+									<f:selectItems
+										value="#{requestFormBean.shopListDetails.entrySet()}" var="qa"
+										itemLabel="#{qa.value}" itemValue="#{qa.key}" />
+								</p:selectOneMenu>
+							</p:column>
+						</h:panelGroup>
+					</p:row>
+
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" styleClass="left_col">
+
+					<p:row>
+						<h:panelGroup layout="block" styleClass="inner_left_col">
+							<p:column>
+								<h:outputText value="#{msg['lbl.reqfromdate']}" />
+							</p:column>
+						</h:panelGroup>
+
+						<h:panelGroup layout="block" styleClass="inner_right_col">
+							<p:column>
+								<p:calendar id="reqfromdate" value="#{requestFormBean.fromDate}" />
+							</p:column>
+						</h:panelGroup>
+					</p:row>
+
+				</h:panelGroup>
+
+
+				<h:panelGroup layout="block" styleClass="left_col">
+
+					<p:row>
+						<h:panelGroup layout="block" styleClass="inner_left_col">
+							<p:column>
+								<h:outputText value="#{msg['lbl.reqtodate']}" />
+							</p:column>
+						</h:panelGroup>
+
+						<h:panelGroup layout="block" styleClass="inner_right_col">
+							<p:column styleClass="red">
+								<p:calendar id="reqtodate" value="#{requestFormBean.toDate}" />
+							</p:column>
+						</h:panelGroup>
+					</p:row>
+
+				</h:panelGroup>
+
+
+				<h:panelGroup layout="block" styleClass="left_col">
+
+					<p:row>
+						<h:panelGroup layout="block" styleClass="inner_left_col">
+							<p:column>
+								<h:outputText value="#{msg['lbl.reqstatus']}" />
+							</p:column>
+						</h:panelGroup>
+
+						<h:panelGroup layout="block" styleClass="inner_right_col">
+							<p:selectOneMenu id="reqstatus" value="#{requestFormBean.status}"
+								style="width:125px">
+								<f:selectItem itemLabel="Initiated By User" itemValue="I" />
+								<f:selectItem itemLabel="Pending for Approval" itemValue="A1" />
+								<f:selectItem itemLabel="Approved" itemValue="A" />
+								<f:selectItem itemLabel="Provided" itemValue="P" />
+								<f:selectItem itemLabel="Rejected" itemValue="R" />
+							</p:selectOneMenu>
+						</h:panelGroup>
+					</p:row>
+
+				</h:panelGroup>
+
+
+				<h:panelGroup layout="block" styleClass="left_col">
+
+					<p:row>
+						<h:panelGroup layout="block" styleClass="inner_left_col">
+							<p:column>
+								<h:outputText value="#{msg['lbl.requestchoose']}" />
+							</p:column>
+						</h:panelGroup>
+
+						<h:panelGroup layout="block" styleClass="inner_right_col">
+							<p:selectOneMenu id="req" label="#{msg['lbl.requestchoose']}"
+								value="#{requestFormBean.reqId}">
+								<f:selectItem itemLabel="" itemValue="" />
+								<f:selectItems
+									value="#{requestFormBean.requestListDetails.entrySet()}"
+									var="qa" itemLabel="#{qa.value}" itemValue="#{qa.key}" />
+							</p:selectOneMenu>
+						</h:panelGroup>
+					</p:row>
+
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+				<p:spacer height="10px;" />
+				<h:panelGrid styleClass="panelGridCenter">
+					<p:row>
+						<p:column styleClass="red">
+							<p:commandButton type="submit" value="Search"
+								action="#{requestFormBean.search}" ajax="false"
+								icon="ui-icon-search" validateClient="true"
+								style="font-size: 12px; font-weight: bold; float:left;"
+								update=":form:messages" />
+						</p:column>
+						<p:column styleClass="red">
+							<p:commandButton value="Reset" ajax="false" immediate="true"
+								action="#{requestFormBean.resetSearch}"
+								icon="ui-icon-circle-close"
+								style="font-size: 12px; font-weight: bold; float:left;"
+								update=":form:messages" />
+						</p:column>
+					</p:row>
+				</h:panelGrid>
+
+			</h:panelGroup>
+
+
+			<!-- data table -->
+			<p:dataTable var="proDt"
+				value="#{requestFormBean.processListByEmpAndStatus}"
+				selection="#{requestFormBean.processListByEmpAndStatus2}" id="reqId"
+				rowKey="#{proDt.emb}" rowIndexVar="rowIndex" rows="10"
+				paginator="true" editable="true" style="margin-bottom:0">
+
+				<p:ajax event="rowEdit" listener="#{requestFormBean.onRowEdit}"
+					update=":form:messages" />
+				<p:ajax event="rowEditCancel"
+					listener="#{requestFormBean.onRowCancel}" update=":form:messages" />
+
+				<p:column headerText="S.No" style="width:40px;text-align:center">
+												#{rowIndex+1}
+			
+											</p:column>
+				<p:column headerText="EC Number/Name">
+
+					<h:outputText value="#{requestFormBean.nameById(proDt.empNumber)}" />
+
+
+				</p:column>
+
+
+				<p:column headerText="Request Type">
+					<h:outputText
+						value="#{requestFormBean.getReNameById(proDt.requestedId)}" />
+				</p:column>
+
+				<!-- 	<p:column headerText="User Remarks">
+					<h:outputText value="#{proDt.userRemarks}" escape="false" />
+				</p:column>
+
+
+				<p:column headerText="Approver Remarks"
+					rendered="#{(requestFormBean.status eq 'A') || (requestFormBean.status eq 'R')}">
+					<h:outputText value="#{proDt.approverRemarks}"
+						rendered="#{(requestFormBean.status eq 'A') || (requestFormBean.status eq 'R')}"
+						escape="false" />
+				</p:column>
+ -->
+				<p:column headerText="Approver Id"
+					rendered="#{(requestFormBean.status eq 'A') || (requestFormBean.status eq 'R')}">
+					<h:outputText value="#{proDt.approverId}"
+						rendered="#{(requestFormBean.status eq 'A') || (requestFormBean.status eq 'R')}" />
+				</p:column>
+
+				<!-- 	<p:column headerText="Provider Remarks"
+					rendered="#{(requestFormBean.status eq 'P') || (requestFormBean.status eq 'R')}">
+					<h:outputText value="#{proDt.providerRemarks}"
+						rendered="#{(requestFormBean.status eq 'P') || (requestFormBean.status eq 'R')}"
+						escape="false" />
+				</p:column> -->
+
+				<p:column headerText="Provider Id"
+					rendered="#{(requestFormBean.status eq 'P') || (requestFormBean.status eq 'R')}">
+					<h:outputText value="#{proDt.providerId}"
+						rendered="#{(requestFormBean.status eq 'P') || (requestFormBean.status eq 'R')}" />
+				</p:column>
+
+				<!--  	<p:column  headerText="Delete">
+           	<h:commandLink value=""
+								action="#{createReqBean.requestDelete(reqDt)}" style="background:url('../images/delete.png') left no-repeat  !important; padding:3px 10px 3px 20px !important " 
+								immediate="true"/>
+			</p:column> -->
+
+				<f:facet name="header">
+            Status: <h:outputText value="#{requestFormBean.status}" />
+					<h:outputText value=", PROVIDED"
+						rendered="#{requestFormBean.status eq 'P'}" />
+					<h:outputText value=", APPROVED"
+						rendered="#{requestFormBean.status eq 'A'}" />
+					<h:outputText value=", INITIATED"
+						rendered="#{requestFormBean.status eq 'I'}" />
+					<h:outputText value=", REJECTED"
+						rendered="#{requestFormBean.status eq 'R'}" />
+				</f:facet>
+
+				<p:column headerText="System IP">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{proDt.systemIP}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{proDt.systemIP}" />
+						</f:facet>
+					</p:cellEditor>
+
+
+
+				</p:column>
+
+				<p:column headerText="System Name">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{proDt.systemName}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{proDt.systemName}" />
+						</f:facet>
+					</p:cellEditor>
+
+
+
+				</p:column>
+
+
+
+
+				<p:column headerText="Edit" style="width:20px;text-align:center"
+					rendered="#{requestFormBean.status eq 'A'}">
+
+					<p:rowEditor />
+				</p:column>
+
+				<p:column style="width:40px;text-align:center" headerText="Expand">
+					<p:rowToggler />
+				</p:column>
+				<p:rowExpansion>
+					<p:panelGrid columns="2" columnClasses="label,value"
+						style="width:400px">
+
+						<h:outputText value="Employee Number:" />
+						<h:outputText value="#{proDt.empNumber}"
+							style="font-weight: bold;" />
+
+						<h:outputText value="Shop Number:" />
+						<h:outputText value="#{proDt.shopNumber}"
+							style="font-weight: bold;" />
+
+						<h:outputText value="Type Of Request:" />
+						<h:outputText value="#{proDt.typeOfRequest}"
+							style="font-weight: bold;" />
+
+
+						<h:outputText value="Request For:" />
+						<h:outputText
+							value="#{requestFormBean.getReNameById(proDt.requestedId)}"
+							style="font-weight: bold;" />
+
+						<h:outputText value="Internet Type:" />
+						<h:outputText value="#{proDt.internetType}"
+							style="font-weight: bold;" />
+
+
+						<h:outputText value="#{msg['lbl.empreqEmail']}" />
+						<h:outputText value="#{proDt.userReqEmailId}"
+							style="font-weight: bold;" />
+
+						<h:outputText value="Auto Forward Emailid:" />
+						<h:outputText value="#{proDt.autoForward}"
+							style="font-weight: bold;" />
+
+
+						<h:outputText value="User Remarks:" />
+						<h:outputText value="#{proDt.userRemarks}" escape="false"
+							style="font-weight: bold;" />
+
+						<h:outputText value="Approver EC Number:" />
+						<h:outputText value="#{proDt.approverId}"
+							style="font-weight: bold;" />
+
+						<h:outputText value="Approver Remarks:" />
+						<h:outputText value="#{proDt.approverRemarks}" escape="false"
+							style="font-weight: bold;" />
+
+						<h:outputText value="Provider EC Number:" />
+						<h:outputText value="#{proDt.providerId}"
+							style="font-weight: bold;" />
+
+						<h:outputText value="Provider Remarks:" />
+						<h:outputText value="#{proDt.providerRemarks}" escape="false"
+							style="font-weight: bold;" />
+
+
+
+						<h:outputText value="Status:" />
+						<h:outputText value="#{proDt.status}" style="font-weight: bold;" />
+
+						<h:outputText value="Request Create By:" />
+						<h:outputText value="#{requestFormBean.nameById(proDt.createBy)}"
+							style="font-weight: bold;">
+						</h:outputText>
+
+						<h:outputText value="Creator Email:" />
+						<h:outputText value="#{requestFormBean.userEmail(proDt.createBy)}"
+							style="font-weight: bold;" />
+
+						<h:outputText value="Correspondense Email:" />
+						<h:outputText value="#{proDt.empAckEmailId}"
+							style="font-weight: bold;" />
+
+						<h:outputText value="Create Date:" />
+						<h:outputText value="#{proDt.createDate}"
+							style="font-weight: bold;">
+							<f:convertDateTime pattern="#{msg['lbl.datepattern']}"></f:convertDateTime>
+						</h:outputText>
+
+						<h:outputText value="Update By:"
+							rendered="#{not empty proDt.updateBy}" />
+						<h:outputText value="#{proDt.updateBy}" style="font-weight: bold;"
+							rendered="#{not empty proDt.updateBy}">
+						</h:outputText>
+						<h:outputText value="Update Date:" />
+						<h:outputText value="#{proDt.updateDate}"
+							style="font-weight: bold;">
+							<f:convertDateTime pattern="#{msg['lbl.datepattern']}"></f:convertDateTime>
+						</h:outputText>
+					</p:panelGrid>
+
+					<p:commandButton value="Download Attachment" ajax="false"
+						rendered="#{not empty proDt.attachDocument}"
+						actionListener="#{requestFormBean.load(proDt.emb)}"
+						onclick="PrimeFaces.monitorDownload(start, stop);"
+						icon="ui-icon-arrowthick-1-s">
+						<p:fileDownload value="#{requestFormBean.file}" />
+					</p:commandButton>
+				</p:rowExpansion>
+
+
+
+				<p:column selectionMode="multiple"
+					style="width:40px;text-align:center" headerText="Update"
+					rendered="#{requestFormBean.status ne 'P'}" />
+
+
+				<f:facet name="footer">
+
+
+
+
+
+
+				</f:facet>
+
+			</p:dataTable>
+
+			<h:panelGroup layout="block" styleClass="left_col"
+				rendered="#{requestFormBean.status eq 'A'}">
+				<p:row>
+					<h:panelGroup layout="block" styleClass="inner_left_col">
+						<p:column>
+							<h:outputText value="#{msg['lbl.empackemail']}"></h:outputText>
+						</p:column>
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="inner_right_col">
+						<p:column>
+
+							<p:inputText id="emailAdditional"
+								value="#{requestFormBean.emailAdditional}"
+								validatorMessage="#{msg['lbl.validemail']}">
+								<f:validateRegex
+									pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+								<p:ajax update=":form:messages" event="blur" />
+							</p:inputText>
+						</p:column>
+					</h:panelGroup>
+				</p:row>
+			</h:panelGroup>
+
+			<h:panelGroup layout="block" styleClass="left_col"
+				rendered="#{requestFormBean.status ne 'P'}">
+				<p:row>
+					<h:panelGroup layout="block" styleClass="inner_left_col">
+						<p:column>
+							<h:outputText value="Remarks:"
+								rendered="#{requestFormBean.status ne 'P'}"></h:outputText>
+						</p:column>
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="inner_right_col_c">
+						<p:column>
+							<p:editor maxlength="2000" id="editor" widgetVar="editorWidget"
+								height="100" value="#{requestFormBean.userRemarks}"
+								controls="bold italic underline font size bullets numbering"
+								rendered="#{requestFormBean.status ne 'P'}" />
+						</p:column>
+					</h:panelGroup>
+				</p:row>
+			</h:panelGroup>
+
+
+
+			<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+			<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+
+			<h:panelGrid styleClass="panelGridCenter">
+
+				<p:row>
+					<p:column styleClass="red">
+						<p:commandButton ajax="false" icon="ui-icon-check"
+							value="Send For Approval" validateClient="true"
+							action="#{requestFormBean.loadList3}"
+							rendered="#{requestFormBean.status eq 'I'}"
+							onclick="PrimeFaces.monitorDownload(start, stop);"
+							onstart="showAjaxActive();" onstop="hideAjaxActive();" />
+
+
+					</p:column>
+					<p:column styleClass="red">
+						<p:commandButton ajax="false" icon="ui-icon-check" value="Accept"
+							validateClient="true" action="#{requestFormBean.loadList2}"
+							rendered="#{requestFormBean.status ne 'P'}"
+							onclick="PrimeFaces.monitorDownload(start, stop);"
+							onstart="showAjaxActive();" onstop="hideAjaxActive();" />
+
+
+					</p:column>
+
+
+					<p:column styleClass="red">
+						<p:commandButton ajax="false" icon="ui-icon-circle-close"
+							value="Reject" action="#{requestFormBean.loadReject}"
+							rendered="#{requestFormBean.status ne 'P'}"
+							onclick="PrimeFaces.monitorDownload(start, stop);"
+							onstart="showAjaxActive();" onstop="hideAjaxActive();" />
+					</p:column>
+
+					<p:column styleClass="red">
+						<p:commandButton ajax="false" value="Communicate"
+							action="#{requestFormBean.loadCommunicate}"
+							rendered="#{requestFormBean.status ne 'P'}"
+							onclick="PrimeFaces.monitorDownload(start, stop);"
+							onstart="showAjaxActive();" onstop="hideAjaxActive();" />
+					</p:column>
+				</p:row>
+
+
+			</h:panelGrid>
+
+
+
+			<p:spacer height="30px"></p:spacer>
+
+			<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+			<p:spacer height="10px" />
+			<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+
+
+		</h:panelGroup>
+		<ui:include src="/common/footer.xhtml"></ui:include>
+	</h:form>
+
+
+
+
+</h:body>
+
+</html>

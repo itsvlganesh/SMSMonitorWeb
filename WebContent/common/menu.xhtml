@@ -1,0 +1,62 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+</h:head>
+<h:body>
+	<h:panelGroup layout="block" styleClass="menu_bg">
+		<h:panelGroup layout="block" styleClass="menu_bg1">
+			<f:event listener="#{facesBeanMenu.menu}" type="preRenderView"></f:event>
+			<p:menubar>
+
+				<p:submenu label="Weekly Report">
+
+					<p:menuitem value="Create Report" ajax="false"
+						url="/weeklyreport/createreport.xhtml"
+						rendered="#{!facesBeanMenu.master}">
+					</p:menuitem>
+					<p:menuitem value="View Report By Meeting" ajax="false"
+						url="/weeklyreport/viewreport.xhtml"
+						rendered="#{facesBeanMenu.master}">
+					</p:menuitem>
+					<p:menuitem value="Reset Password" ajax="false"
+						url="/weeklyreport/resetpassword.xhtml">
+					</p:menuitem>
+					<p:menuitem value="Update Profile" ajax="false"
+						url="/weeklyreport/userMgmt.xhtml"
+						rendered="#{facesBeanMenu.master}">
+					</p:menuitem>
+
+					<p:menuitem value="Manage Dept/team" ajax="false"
+						url="/weeklyreport/createdept.xhtml"
+						rendered="#{facesBeanMenu.master}">
+					</p:menuitem>
+
+
+					<p:menuitem value="Manage Meetings" ajax="false"
+						url="/weeklyreport/createmeeting.xhtml"
+						rendered="#{facesBeanMenu.master}">
+					</p:menuitem>
+					
+					<p:menuitem value="Search Meetings" ajax="false"
+						url="/weeklyreport/searchreport.xhtml"
+						rendered="#{facesBeanMenu.master}">
+					</p:menuitem>
+					<!-- 			<p:submenu label="Report List" ajax="false">
+					</p:submenu> -->
+				</p:submenu>
+
+
+			</p:menubar>
+
+		</h:panelGroup>
+	</h:panelGroup>
+	<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+</h:body>
+</html>

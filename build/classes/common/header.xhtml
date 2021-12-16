@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>#{msg['lbl.header']}</title>
+	<link rel="icon" type="../images/ico" href="../images/favicon.png" />
+	<link href="../css/style.css" rel="stylesheet" type="text/css" />
+
+</h:head>
+<h:body>
+	<h:panelGroup layout="block" styleClass="header">
+		<h:panelGroup layout="block" styleClass="logo"></h:panelGroup>
+		<h:panelGroup layout="block" styleClass="header_text">
+			<h:outputText value="#{msg['lbl.header']}" />
+		</h:panelGroup>
+		<h:panelGroup layout="block" styleClass="header_iconlinks">
+		<h:outputText value="User: #{facesBeanMenu.name}" />
+		<p:spacer width="10px" />
+			<p:commandLink value="Home" action="#{loginBean.home}" ajax="false"
+				immediate="true"
+				style="background:url('../images/home.png') left no-repeat  !important; padding:3px 10px 3px 20px !important " />
+			<p:spacer width="10px" />
+			<p:commandLink value="Logout" action="#{facesBeanMenu.logout}"
+				ajax="false" immediate="true"
+				style="background:url('../images/logout.png') left no-repeat  !important; padding:3px 10px 3px 20px !important " />
+			<p:spacer width="10px" />
+		<!-- <p:commandButton value="Help" ajax="false" immediate="true" actionListener="#{facesBean.load}"  styleClass="ui-button2"  icon="ui-icon-arrowthick-1-s">
+        <p:fileDownload value="#{facesBean.file}" />
+    </p:commandButton> -->
+		</h:panelGroup>
+
+		<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+	</h:panelGroup>
+	<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+</h:body>
+</html>

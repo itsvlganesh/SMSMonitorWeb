@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+</h:head>
+
+<h:body dir="#{facesBean.direction}" onload="disableclick(this)">
+	<f:view locale="#{facesBean.locale}">
+		<h:form name="form" id="form">
+			<ui:include src="/common/header.xhtml"></ui:include>
+			<ui:include src="/common/menu.xhtml"></ui:include>
+
+			<h:panelGroup layout="block" styleClass="main_div1">
+				<p:messages id="messages" showDetail="true" closable="true" />
+				<f:event listener="#{createReqBean.showList}" type="preRenderView"></f:event>
+
+
+				<h:panelGroup layout="block" styleClass="main_div2">
+
+
+					<h2>
+						<h:outputText value="#{msg['lbl.createReqF']}" />
+
+					</h2>
+
+					<h:panelGroup layout="block" styleClass="left_col">
+
+
+						<h:panelGroup layout="block" styleClass="inner_left_col">
+							<h:outputText value="#{msg['lbl.reqName']}" />
+						</h:panelGroup>
+
+						<h:panelGroup layout="block" styleClass="inner_right_col">
+							<p:inputText id="reqTypeName"
+								value="#{createReqBean.reqTypeName}" required="true"
+								requiredMessage="Can't be empty">
+							</p:inputText>
+						</h:panelGroup>
+
+						<p:panelGrid>
+
+						</p:panelGrid>
+						<!-- <p:spacer height="30px"></p:spacer>
+
+			<h:panelGroup layout="block" styleClass="inner_left_col">
+					<h:outputText value="Attachment:" />
+        </h:panelGroup>
+        	<h:panelGroup layout="block" styleClass="inner_right_col">
+        	
+        	  <p:fileUpload  fileUploadListener="#{createReqBean.handleFileUpload}" mode="advanced" dragDropSupport="false"
+           update="messages" sizeLimit="300000" auto="true" fileLimit="1" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+ 
+        	</h:panelGroup> -->
+
+						<p:spacer height="30px"></p:spacer>
+
+						<h:panelGroup layout="block" styleClass="inner_left_col">
+							<h:outputText value="" />
+						</h:panelGroup>
+						<h:panelGroup layout="block" styleClass="inner_right_col">
+							<p:commandButton type="submit" value="Submit"
+								action="#{createReqBean.requestInsert}" ajax="false"
+								icon="ui-icon-check" validateClient="true"
+								style="font-size: 12px; font-weight: bold; float:left;"
+								update=":formL::msgs" />
+
+
+						</h:panelGroup>
+					</h:panelGroup>
+
+
+
+
+					<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+					<p:spacer height="10px" />
+					<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+
+
+					<p:dataTable var="reqDt" value="#{createReqBean.requestTypeList}"
+						id="reqId" rowKey="#{createReqBean.reqTypeName}"
+						rowIndexVar="rowIndex" rows="10" paginator="true" editable="true">
+
+
+						<p:ajax event="rowEdit" listener="#{createReqBean.onRowEdit}"
+							update=":form:messages" />
+						<p:ajax event="rowEditCancel"
+							listener="#{createReqBean.onRowCancel}" update=":form:messages" />
+						<p:column headerText="S.No">
+												#{rowIndex+1}
+			
+											</p:column>
+						<p:column headerText="Request Name">
+							<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{reqDt.requestName}" />
+								</f:facet>
+								<f:facet name="input">
+									<p:inputText id="modelInput" value="#{reqDt.requestName}"
+										style="width:100%" />
+								</f:facet>
+							</p:cellEditor>
+
+
+						</p:column>
+
+						<p:column headerText="Create Date">
+							<h:outputText value="#{reqDt.createDate}">
+
+								<f:convertDateTime pattern="#{msg['lbl.datepattern']}"></f:convertDateTime>
+							</h:outputText>
+						</p:column>
+
+
+						<p:column headerText="Created By">
+							<h:outputText value="#{reqDt.createBy}">
+							</h:outputText>
+						</p:column>
+
+						<p:column headerText="Edit">
+
+							<p:rowEditor />
+						</p:column>
+						<!--  	<p:column  headerText="Delete">
+           	<h:commandLink value=""
+								action="#{createReqBean.requestDelete(reqDt)}" style="background:url('../images/delete.png') left no-repeat  !important; padding:3px 10px 3px 20px !important " 
+								immediate="true"/>
+			</p:column> -->
+
+					</p:dataTable>
+
+
+				</h:panelGroup>
+
+
+
+			</h:panelGroup>
+			<ui:include src="/common/footer.xhtml"></ui:include>
+		</h:form>
+
+
+
+	</f:view>
+</h:body>
+
+</html>

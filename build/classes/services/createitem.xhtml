@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+</h:head>
+
+<h:body>
+	<h:form name="form" id="form">
+		<ui:include src="/common/header.xhtml"></ui:include>
+		<ui:include src="/common/menu.xhtml"></ui:include>
+
+		<h:panelGroup layout="block" styleClass="main_div1">
+
+			<h:panelGroup layout="block" styleClass="main_div2">
+				<h1>
+					<h:outputText value="Create New Item" />
+				</h1>
+
+				<h:panelGroup layout="block" styleClass="left_col">
+					<h:panelGroup layout="block" styleClass="inner_left_col">
+						<h:outputText value="Item Name :" />
+					</h:panelGroup>
+					<h:panelGroup layout="block" styleClass="inner_right_col">
+						<p:inputText id="itemname">
+						</p:inputText>
+						<p:spacer height="10px;" />
+					</h:panelGroup>
+
+
+					<h:panelGroup layout="block" styleClass="inner_left_col">
+						<h:outputText value="Description :" />
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="inner_right_col">
+
+						<p:inputText id="description">
+
+						</p:inputText>
+						<p:spacer height="10px;" />
+					</h:panelGroup>
+
+
+					<h:panelGroup layout="block" styleClass="inner_left_col">
+						<h:outputText value="Quantity (UNITS) :" />
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="inner_right_col">
+						<p:inputText id="quantity">
+						</p:inputText>
+						<p:spacer height="10px;" />
+					</h:panelGroup>
+					<h:panelGroup layout="block" styleClass="inner_left_col">
+						<h:outputText value="Unit :" />
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="inner_right_col">
+						<p:inputText id="unit" />
+						<p:spacer height="10px;" />
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="inner_left_col">
+						<h:outputText value="Unit Pkg :" />
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="inner_right_col">
+						<p:inputText id="unitpkg" />
+						<p:spacer height="10px;" />
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="inner_left_col">
+						<h:outputText value="Cost (KWD) :" />
+					</h:panelGroup>
+					<h:panelGroup layout="block" styleClass="inner_right_col">
+						<p:inputText id="cost" />
+						<p:spacer height="10px;" />
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="inner_left_col">
+						<h:outputText value="Image :" />
+					</h:panelGroup>
+					<h:panelGroup layout="block" styleClass="inner_right_col">
+
+						<p:fileUpload
+							fileUploadListener="#{fileUploadView.handleFileUpload}"
+							mode="advanced" sizeLimit="1000000" fileLimit="1"
+							allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+						<p:spacer height="10px;" />
+					</h:panelGroup>
+
+
+					<h:panelGroup layout="block" styleClass="inner_left_col">
+						<h:outputText value="Select Product :" />
+					</h:panelGroup>
+					<h:panelGroup layout="block" styleClass="inner_right_col">
+						<p:selectOneMenu id="country" value="#{dropdownView.country}"
+							style="width:150px">
+							<p:ajax listener="#{dropdownView.onCountryChange}" />
+							<f:selectItem itemLabel="Stationery" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItem itemLabel="Pantry" itemValue="Pantry" />
+							<f:selectItem itemLabel="New Category" itemValue="New Category" />
+						
+						</p:selectOneMenu>
+					</h:panelGroup>
+					<h:panelGroup layout="block" styleClass="tealri"></h:panelGroup>
+					<p:spacer height="30px;" width="30px;" />
+					
+					<h:panelGroup styleClass="clearfix">
+
+						<p:button value="SAVE" action="" />
+					</h:panelGroup>
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" styleClass="clearfix">
+
+				</h:panelGroup>
+				<p:spacer height="10px" />
+				<h:panelGroup layout="block" styleClass="clearfix">
+
+
+
+
+				</h:panelGroup>
+
+			</h:panelGroup>
+		</h:panelGroup>
+		<ui:include src="/common/footer.xhtml"></ui:include>
+	</h:form>
+
+
+
+
+</h:body>
+
+</html>

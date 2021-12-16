@@ -1,0 +1,2 @@
+http://stackoverflow.com/questions/15819137/dynamically-add-and-remove-panels-primeface
+

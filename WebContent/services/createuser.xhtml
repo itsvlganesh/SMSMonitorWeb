@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+</h:head>
+
+<h:body>
+	<h:form name="form" id="form">
+		<ui:include src="/common/header.xhtml"></ui:include>
+		<ui:include src="/common/menu.xhtml"></ui:include>
+
+		<h:panelGroup layout="block" styleClass="main_div1">
+
+			<h:panelGroup layout="block" styleClass="main_div2">
+				<h1>
+					<h:outputText value="Create User" />
+				</h1>
+
+				<h:panelGroup layout="block" styleClass="left_col">
+
+					<h:panelGroup layout="block" styleClass="inner_left_col">
+						<h:outputText value="Username :" />
+					</h:panelGroup>
+
+
+					<h:panelGroup layout="block" styleClass="inner_right_col">
+						<p:inputText id="username">
+						</p:inputText>
+						<p:spacer height="10px;" />
+					</h:panelGroup>
+
+
+					<h:panelGroup layout="block" styleClass="inner_left_col">
+						<h:outputText value="Password :" />
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="inner_right_col">
+
+						<p:inputText id="password">
+
+						</p:inputText>
+						<p:spacer height="10px;" />
+					</h:panelGroup>
+
+
+					<h:panelGroup layout="block" styleClass="inner_left_col">
+						<h:outputText value="Enable :" />
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="inner_right_col">
+						<p:selectBooleanCheckbox value="enable" />
+
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="inner_left_col">
+						<h:outputText value="Roles :" />
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="inner_right_col">
+						<h:selectManyListbox value="#{user.favFood1}">
+							<f:selectItem itemValue="MASTER_USER" itemLabel="MASTER_USER" />
+							<f:selectItem itemValue="MANAGER" itemLabel="MANAGER" />
+							<f:selectItem itemValue="EMP_USER" itemLabel="EMP_USER" />
+							<f:selectItem itemValue="ADMINISTRATOR" itemLabel="ADMINISTRATOR" />
+							<f:selectItem itemValue="USER" itemLabel="USER" />
+						</h:selectManyListbox>
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="inner_left_col">
+						<h:outputText value="Department :" />
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="inner_right_col">
+						<p:selectOneMenu id="department"
+							value="#{selectOneMenuView.console}" style="width:125px">
+							<f:selectItem itemLabel="SELECT CARE - AL RAI"
+								itemValue="SELECT CARE - AL RAI" />
+							<f:selectItem itemLabel="Al Mulla Real Estate Co. Wll"
+								itemValue="Al Mulla Real Estate Co. Wll" />
+							<f:selectItem itemLabel="ADMINISTRATION DEPARTMENT"
+								itemValue="ADMINISTRATION DEPARTMENT" />
+							<f:selectItem itemLabel="AL MULLA TRAVELS"
+								itemValue="AL MULLA TRAVELS" />
+						</p:selectOneMenu>
+						<p:spacer height="10px;" />
+						<p:spacer height="10px;" />
+						<p:spacer height="10px;" />
+						<p:spacer height="10px;" />
+					</h:panelGroup>
+
+
+					<h:panelGroup styleClass="clearfix">
+
+						<p:button value="SAVE" action="" />
+					</h:panelGroup>
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" styleClass="clearfix">
+
+				</h:panelGroup>
+				<p:spacer height="10px" />
+				<h:panelGroup layout="block" styleClass="clearfix">
+
+
+
+
+				</h:panelGroup>
+
+			</h:panelGroup>
+		</h:panelGroup>
+		<ui:include src="/common/footer.xhtml"></ui:include>
+	</h:form>
+
+
+
+
+</h:body>
+
+</html>

@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+</h:head>
+
+<h:body>
+	<p:tooltip />
+	<h:form name="form" id="form">
+	
+		<ui:include src="/common/header.xhtml" ></ui:include>
+		<ui:include src="/common/menu.xhtml"></ui:include>
+
+		<h:panelGroup layout="block" styleClass="main_div1">
+			<p:messages id="msgs" showDetail="true" autoUpdate="true"
+				closable="true" />
+			<f:event listener="#{userProfBean.showList}" type="preRenderView"></f:event>
+
+
+			<h:panelGroup layout="block" styleClass="main_div2">
+				<h1>
+					<h:outputText value="Create New User" />
+				</h1>
+
+
+				<h:panelGroup layout="block" styleClass="left_col">
+
+					<h:panelGroup layout="block" styleClass="inner_left_col">
+						<h:outputText value="Employee Number:*" />
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="inner_right_col">
+						<p:inputText id="empId" value="#{userProfBean.empNo}"
+							style="margin-bottom:7px; margin-top:7px;" required="true"
+							requiredMessage="*Must be valid Employee Number"
+							validatorMessage="Must be 3 to 6 digit number">
+
+							<f:validateDoubleRange>
+								<f:validateLength minimum="3" maximum="6" />
+							</f:validateDoubleRange>
+							<p:ajax update="empId usrname pwd cpwd role dept group status" event="blur"
+								listener="#{userProfBean.checkAvailablity}" />
+
+						</p:inputText>
+
+						<p:message for="empId" display="tooltip" />
+
+					</h:panelGroup>
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" styleClass="left_col">
+
+					<h:panelGroup layout="block" styleClass="inner_left_col">
+						<h:outputText value="User Name:*" />
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="inner_right_col">
+						<p:inputText id="usrname" value="#{userProfBean.userName}"
+							style="margin-bottom:7px; margin-top:7px;" required="true">
+
+
+						</p:inputText>
+
+						<p:message for="usrname" display="tooltip" />
+
+					</h:panelGroup>
+				</h:panelGroup>
+
+
+				<h:panelGroup layout="block" styleClass="left_col">
+					<h:panelGroup layout="block" styleClass="inner_left_col">
+						<h:outputText value="Password:*" />
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="inner_right_col">
+						<p:password id="pwd" value="#{userProfBean.pass}"
+							style="margin-bottom:7px; margin-top:7px;" required="true"
+							match="cpwd" requiredMessage="*Must be valid Password"
+							validatorMessage="Password should match">
+
+						</p:password>
+
+						<p:message for="pwd" display="tooltip" />
+					</h:panelGroup>
+				</h:panelGroup>
+
+
+				<h:panelGroup layout="block" styleClass="left_col">
+					<h:panelGroup layout="block" styleClass="inner_left_col">
+						<h:outputText value="Confirm Password:*" />
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="inner_right_col">
+						<p:password id="cpwd" value="#{userProfBean.confPassword}"
+							style="margin-bottom:7px; margin-top:7px;" required="true"
+							requiredMessage="*Must be valid Password"
+							validatorMessage="Password should match">
+
+
+						</p:password>
+
+						<p:message for="cpwd" display="tooltip" />
+					</h:panelGroup>
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" styleClass="left_col">
+					<h:panelGroup layout="block" styleClass="inner_left_col">
+						<h:outputText value="User Role:" />
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="inner_right_col">
+						<p:selectOneMenu id="role" value="#{userProfBean.roleId}"
+							style="margin-bottom:7px; margin-top:7px;" filter="true"
+							required="true" requiredMessage="User Role: Can't be empty"
+							filterMatchMode="startsWith">
+							<f:selectItems value="#{userProfBean.userRoleListM.entrySet()}"
+								var="qa" itemLabel="#{qa.value}" itemValue="#{qa.key}" />
+							<p:ajax update=":form:msgs" event="blur" />
+
+						</p:selectOneMenu>
+					</h:panelGroup>
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" styleClass="left_col">
+					<h:panelGroup layout="block" styleClass="inner_left_col">
+						<h:outputText value="User Dept:" />
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="inner_right_col">
+						<p:selectOneMenu id="dept" value="#{userProfBean.deptId}"
+							style="margin-bottom:7px; margin-top:7px;" filter="true"
+							required="true" requiredMessage="User Dept: Can't be empty"
+							filterMatchMode="startsWith">
+							
+							<f:selectItems value="#{userProfBean.userDeptListM.entrySet()}"
+								var="qa" itemLabel="#{qa.value}" itemValue="#{qa.key}" />
+							<p:ajax update=":form:msgs" event="blur" />
+
+						</p:selectOneMenu>
+					</h:panelGroup>
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" styleClass="left_col">
+					<h:panelGroup layout="block" styleClass="inner_left_col">
+						<h:outputText value="User group:" />
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="inner_right_col">
+						<p:selectOneMenu id="group" value="#{userProfBean.groupId}"
+							style="margin-bottom:7px; margin-top:7px;" filter="true"
+							required="true" requiredMessage="User Dept: Can't be empty"
+							filterMatchMode="startsWith">
+							<f:selectItems value="#{userProfBean.userGroupListM.entrySet()}"
+								var="qa" itemLabel="#{qa.value}" itemValue="#{qa.key}" />
+							<p:ajax update=":form:msgs" event="blur" />
+
+						</p:selectOneMenu>
+					</h:panelGroup>
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" styleClass="left_col">
+					<h:panelGroup layout="block" styleClass="inner_left_col">
+						<h:outputText value="Status:" />
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="inner_right_col">
+
+						<p:selectOneMenu id="status" value="#{userProfBean.status}"
+							style="margin-bottom:7px; margin-top:7px;" required="true" requiredMessage="Can't be empty">
+							<f:selectItem itemLabel="Choose a status" itemValue="" />
+							<f:selectItem itemLabel="Active" itemValue="A" />
+							<f:selectItem itemLabel="DeActivate" itemValue="D" />
+						</p:selectOneMenu>
+					</h:panelGroup>
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+				<p:spacer height="10px;" />
+				<h:panelGroup layout="block" styleClass="mcenter">
+					<p:commandButton value="Save" action="#{userProfBean.saveUser}"
+						ajax="false" validateClient="true"
+						style="font-size: 12px; font-weight: bold; float:left;"
+						update=":form:msgs" />
+					<p:commandButton value="Update"
+						action="#{userProfBean.updateProfile}" ajax="false"
+						validateClient="true"
+						style="font-size: 12px; font-weight: bold; float:left;"
+						update=":form:msgs"  />
+					<p:commandButton value="Clear" action="#{userProfBean.clear}"
+						ajax="false" validateClient="true"
+						style="font-size: 12px; font-weight: bold; float:left;"
+						update=":form:msgs" />
+				</h:panelGroup>
+
+
+
+				<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+
+				<p:spacer height="10px" />
+				<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+
+			</h:panelGroup>
+		</h:panelGroup>
+		<ui:include src="/common/footer.xhtml"></ui:include>
+	</h:form>
+
+
+
+
+</h:body>
+
+</html>

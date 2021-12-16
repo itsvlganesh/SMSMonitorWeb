@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+</h:head>
+
+<h:body>
+	<p:tooltip />
+	<h:form name="form" id="form">
+
+		<ui:include src="/common/header.xhtml"></ui:include>
+		<ui:include src="/common/menu.xhtml"></ui:include>
+
+		<h:panelGroup layout="block" styleClass="main_div1">
+			<p:messages id="msgs" showDetail="true" autoUpdate="true"
+				closable="true" />
+			<f:event listener="#{weeklyReportBean.showList}" type="preRenderView"></f:event>
+
+
+			<h:panelGroup layout="block" styleClass="main_div2">
+				<h1>
+					<h:outputText value="Create New Meet" />
+				</h1>
+
+
+				<h:panelGroup layout="block" styleClass="left_col">
+
+					<h:panelGroup layout="block" styleClass="inner_left_col">
+						<h:outputText value="Meet Name:*" />
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="inner_right_col">
+						<p:inputText id="meetname" value="#{weeklyReportBean.meetName}"
+							style="margin-bottom:7px; margin-top:7px;" required="true">
+
+
+						</p:inputText>
+
+						<p:message for="meetname" display="tooltip" />
+
+					</h:panelGroup>
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" styleClass="left_col">
+
+					<h:panelGroup layout="block" styleClass="inner_left_col">
+						<h:outputText value="Meet Routine:*" />
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="inner_right_col">
+						<p:inputText id="txt1" value="#{weeklyReportBean.number1}" />
+						<p:slider for="txt1" />
+					</h:panelGroup>
+				</h:panelGroup>
+
+
+				<h:panelGroup layout="block" styleClass="left_col">
+					<h:panelGroup layout="block" styleClass="inner_left_col">
+						<h:outputText value="Meet Date:*" />
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="inner_right_col">
+
+						<p:calendar id="button" value="#{weeklyReportBean.date1}" />
+
+					</h:panelGroup>
+				</h:panelGroup>
+
+
+
+
+				<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+				<p:spacer height="10px;" />
+				<h:panelGroup layout="block" styleClass="mcenter">
+					<p:commandButton value="Save" action="#{weeklyReportBean.saveMeet}"
+						ajax="false" validateClient="true"
+						style="font-size: 12px; font-weight: bold; float:left;"
+						update=":form:msgs" />
+
+					<p:commandButton value="Clear" action="#{weeklyReportBean.clear}"
+						ajax="false" validateClient="true"
+						style="font-size: 12px; font-weight: bold; float:left;"
+						update=":form:msgs" />
+				</h:panelGroup>
+
+
+
+				<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+
+				<p:spacer height="10px" />
+				<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+
+
+				<p:dataTable var="meetDt" value="#{weeklyReportBean.meetList}"
+					id="meetId" rowKey="#{weeklyReportBean.meetID}"
+					rowIndexVar="rowIndex" rows="10" paginator="true" editable="true">
+
+					<p:ajax event="rowEdit" listener="#{weeklyReportBean.onRowEdit2}"
+						update=":form:msgs" />
+					<p:ajax event="rowEditCancel"
+						listener="#{weeklyReportBean.onRowCancel}" update=":form:msgs" />
+
+
+					<p:column headerText="Meet ID">
+						<h:outputText value="#{meetDt.meetID}" />
+					</p:column>
+
+					<p:column headerText="Meet Name">
+						<h:outputText value="#{meetDt.meetName}" />
+					</p:column>
+
+					<p:column headerText="Meet Routine">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{meetDt.meetCycle}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText id="txt2" value="#{meetDt.meetCycle}" />
+								<p:slider for="txt2" />
+							</f:facet>
+						</p:cellEditor>
+
+
+					</p:column>
+
+
+					<p:column headerText="Meet Date">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{meetDt.meetDate}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:calendar id="button" value="#{meetDt.meetDate}" />
+							</f:facet>
+						</p:cellEditor>
+
+
+					</p:column>
+
+					<p:column headerText="Edit" style="width:20px;text-align:center">
+
+						<p:rowEditor />
+					</p:column>
+				</p:dataTable>
+			</h:panelGroup>
+		</h:panelGroup>
+		<ui:include src="/common/footer.xhtml"></ui:include>
+	</h:form>
+
+
+
+
+</h:body>
+
+</html>

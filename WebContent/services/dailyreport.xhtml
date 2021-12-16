@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+</h:head>
+
+<h:body>
+	<h:form name="form" id="form">
+		<ui:include src="/common/header.xhtml"></ui:include>
+		<ui:include src="/common/menu.xhtml"></ui:include>
+
+		<h:panelGroup layout="block" styleClass="main_div1">
+
+			<h:panelGroup layout="block" styleClass="main_div2">
+				<h1>
+					<h:outputText value="Create New Daily Report" />
+				</h1>
+
+				<h:panelGroup layout="block" styleClass="left_col">
+
+					<h:panelGroup layout="block" styleClass="inner_left_col">
+						<h:outputText value="Employee No. :" />
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="inner_right_col">
+						<p:inputText id="empno" disabled="true" value="#{userBean.empNo}">
+
+						</p:inputText>
+						<p:spacer height="10px" />
+					</h:panelGroup>
+					<h:panelGroup layout="block" styleClass="inner_left_col">
+						<h:outputText value="Employee Name :" />
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="inner_right_col">
+						<p:inputText id="empname" disabled="true"
+							value="#{userBean.empName}">
+						</p:inputText>
+						<p:spacer height="10px" />
+					</h:panelGroup>
+					<h:panelGroup layout="block" styleClass="inner_left_col">
+						<h:outputText value="Department Name :" />
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="inner_right_col">
+						<p:inputText id="depname" disabled="true"
+							value="#{userBean.deptName}">
+						</p:inputText>
+						<p:spacer height="10px" />
+					</h:panelGroup>
+
+
+
+					<h:panelGroup layout="block" styleClass="clearfix">
+					</h:panelGroup>
+					<p:spacer height="10px" />
+					<h:panelGroup layout="block" styleClass="clearfix">
+					</h:panelGroup>
+					<h:panelGroup layout="block" styleClass="clearfix">
+					</h:panelGroup>
+					<p:spacer height="10px" />
+					<h:panelGroup layout="block" styleClass="clearfix">
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="inner_left_col">
+						<h:outputText value="Report Date :" />
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="inner_right_col">
+						<p:calendar id="popup" disabled="false" required="true"
+							requiredMessage="Enter Report Date" />
+
+						<p:spacer height="10px" />
+					</h:panelGroup>
+
+
+
+					<h:panelGroup layout="block" styleClass="clearfix">
+					</h:panelGroup>
+					<p:spacer height="10px" />
+					<h:panelGroup layout="block" styleClass="clearfix">
+					</h:panelGroup>
+					<h:panelGroup layout="block" styleClass="clearfix">
+					</h:panelGroup>
+					<p:spacer height="10px" />
+					<h:panelGroup layout="block" styleClass="clearfix">
+					</h:panelGroup>
+
+
+				</h:panelGroup>
+
+				<p:spacer width="20px" />
+
+				<h:panelGroup layout="block" styleClass="right_col">
+					<p:graphicImage style="height:100px;width:100px"
+						value="#{userBean.myImage}">
+						<f:param name="id" value="#{userBean.empNo}" />
+					</p:graphicImage>
+				</h:panelGroup>
+
+				<h:panelGroup layout="block">
+					<h:panelGrid style="margin-top:200px;width:70%" border="1"
+						title="Create Daily Report" id="dailyreport">
+						<h:panelGroup layout="block" styleClass="clearfix"
+							style="width:70px">
+							<p:outputLabel for="fromtime" value="From Time" />
+							<p:calendar id="fromtime" value="#{calendarView.date11}"
+								pattern="HH:mm a" timeOnly="true" />
+							<p:spacer height="10px" />
+						</h:panelGroup>
+						<h:panelGroup layout="block" styleClass="clearfix"
+							style="width:70px">
+							<p:outputLabel for="totime" value="To Time" />
+							<p:calendar id="totime" value="#{calendarView.date11}"
+								pattern="HH:mm a" timeOnly="true" />
+							<p:spacer height="10px" />
+							<p:spacer height="10px" />
+							<p:spacer height="10px" />
+						</h:panelGroup>
+
+						<h:panelGroup layout="block" styleClass="clearfix"
+							style="width:150px">
+							<p:outputLabel for="category" value="Category " />
+							<p:selectOneMenu id="category">
+
+								<f:selectItem itemLabel="Select Category" itemValue=""
+									noSelectionOption="true" />
+								<f:selectItems itemValue="Category" itemLabel="Category" />
+							</p:selectOneMenu>
+						</h:panelGroup>
+
+						<h:panelGroup layout="block" styleClass="clearfix"
+							style="width:150px">
+							<p:outputLabel for="workplace" value="Workplace " />
+							<p:selectOneMenu id="workplace">
+
+								<f:selectItem itemLabel="Select Workplace" itemValue=""
+									noSelectionOption="true" />
+								<f:selectItem itemValue="Government" itemLabel="Government" />
+								<f:selectItem itemValue="Private Sector"
+									itemLabel="Private Sector" />
+								<f:selectItem itemValue="At Office" itemLabel="At Office" />
+							</p:selectOneMenu>
+						</h:panelGroup>
+
+						<h:panelGroup layout="block" styleClass="clearfix"
+							style="width:150px">
+							<p:outputLabel for="chargetype" value=" Select Chargetype " />
+							<p:selectOneMenu id="chargetype">
+
+
+								<f:selectItem itemLabel="Select Chargetype" itemValue=""
+									noSelectionOption="true" />
+
+								<f:selectItem itemValue="Non-Chargeable"
+									itemLabel=" Non-Chargeable" />
+								<f:selectItem itemValue="Chargeable" itemLabel="Chargeable" />
+
+							</p:selectOneMenu>
+						</h:panelGroup>
+
+						<h:panelGroup layout="block" styleClass="clearfix"
+							style="width:300px">
+							<p:outputLabel for="jobdesc" value="Job Description" />
+							<p:inputTextarea id="jobdesc" rows="5" cols="30"
+								counter="display" maxlength="100"
+								counterTemplate="{0} characters remaining." autoResize="false" />
+							<h:outputText id="display" />
+
+						</h:panelGroup>
+					</h:panelGrid>
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" styleClass="clearfix">
+				</h:panelGroup>
+				<p:spacer height="10px" />
+
+				<h:panelGroup layout="block" styleClass="inner_right_col">
+
+					<h:form>
+						<p:commandButton actionListener="#{userBean.addPanel}"
+							icon="ui-icon-plusthick" update=":dailyreport" />
+					</h:form>
+				</h:panelGroup>
+
+
+				<h:panelGroup layout="block" styleClass="clearfix">
+				</h:panelGroup>
+				<p:spacer height="10px" />
+				<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+
+				<h:panelGroup layout="block" styleClass="inner_left_col">
+					<p:commandButton value="Submit" icon="ui-icon-check" />
+				</h:panelGroup>
+
+
+				<h:panelGroup layout="block" styleClass="clearfix">
+				</h:panelGroup>
+				<p:spacer height="10px" />
+				<h:panelGroup layout="block" styleClass="clearfix">
+				</h:panelGroup>
+				<h:panelGroup layout="block" styleClass="clearfix">
+				</h:panelGroup>
+				<p:spacer height="10px" />
+				<h:panelGroup layout="block" styleClass="clearfix">
+				</h:panelGroup>
+				<h:panelGroup layout="block" styleClass="clearfix">
+				</h:panelGroup>
+				<p:spacer height="10px" />
+				<h:panelGroup layout="block" styleClass="clearfix">
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" styleClass="clearfix">
+				</h:panelGroup>
+				<p:spacer height="10px" />
+				<h:panelGroup layout="block" styleClass="clearfix">
+				</h:panelGroup>
+
+			</h:panelGroup>
+		</h:panelGroup>
+		<ui:include src="/common/footer.xhtml"></ui:include>
+	</h:form>
+
+
+</h:body>
+
+</html>

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+</h:head>
+
+<h:body>
+	<p:tooltip />
+	<h:form name="form" id="form">
+		<ui:include src="/common/header.xhtml"></ui:include>
+
+
+		<h:panelGroup layout="block" styleClass="main_div1">
+			<p:messages id="msgs" showDetail="false" autoUpdate="true"
+				closable="true" />
+			<h:panelGroup layout="block" styleClass="main_div2">
+				<h1>
+					<h:outputText value="Create New User" />
+				</h1>
+
+
+				<h:panelGroup layout="block" styleClass="left_col">
+
+					<h:panelGroup layout="block" styleClass="inner_left_col">
+						<h:outputText value="Employee Number:*" />
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="inner_right_col">
+						<p:inputText id="usrname" value="#{userBean2.userName}"
+							style="margin-bottom:7px; margin-top:7px;" required="true"
+							requiredMessage="*Must be valid Employee Number"
+							validatorMessage="Must be a 6 digit number">
+
+							<f:validateDoubleRange>
+								<f:validateLength minimum="6" maximum="6" />
+							</f:validateDoubleRange>
+							<p:ajax update="usrname" event="blur"
+								listener="#{userBean2.checkAvailablity}" />
+
+						</p:inputText>
+
+						<p:message for="usrname" display="tooltip" />
+
+					</h:panelGroup>
+				</h:panelGroup>
+
+
+				<h:panelGroup layout="block" styleClass="left_col">
+					<h:panelGroup layout="block" styleClass="inner_left_col">
+						<h:outputText value="Password:*" />
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="inner_right_col">
+						<p:password id="pwd" value="#{userBean2.password}"
+							style="margin-bottom:7px; margin-top:7px;" required="true"
+							requiredMessage="*Must be valid Password">
+
+						</p:password>
+
+						<p:message for="pwd" display="tooltip" />
+					</h:panelGroup>
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" styleClass="left_col">
+					<h:panelGroup layout="block" styleClass="inner_left_col">
+						<h:outputText value="Mobile:" />
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="inner_right_col">
+						<p:inputText id="mobile" value="#{userBean2.mobile}"
+							style="margin-bottom:7px; margin-top:7px;"
+							validatorMessage="Must be a 8 digit number">
+							<f:validateDoubleRange>
+								<f:validateLength minimum="8" maximum="11" />
+							</f:validateDoubleRange>
+							<p:ajax update="msgs" event="blur" />
+						</p:inputText>
+						<p:message for="mobile" display="tooltip" />
+					</h:panelGroup>
+				</h:panelGroup>
+				
+							<h:panelGroup layout="block" styleClass="left_col">
+					<h:panelGroup layout="block" styleClass="inner_left_col">
+						<h:outputText value="Email:*" />
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="inner_right_col">
+						<p:inputText id="email" value="#{userBean2.email}"
+							style="margin-bottom:7px; margin-top:7px;" validatorMessage="#{msg['lbl.validemail']}">
+									<f:validateRegex
+										pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+									<p:ajax update="msgs" event="blur" />
+						</p:inputText>
+						<p:message for="email" display="tooltip" />
+					</h:panelGroup>
+				</h:panelGroup>
+				
+				<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+				<p:spacer height="10px;" />
+				<h:panelGroup layout="block" styleClass="mcenter">
+					<p:commandButton value="Submit" action="#{userBean2.saveUser}"
+						ajax="false" validateClient="true"
+						style="font-size: 12px; font-weight: bold; float:left;"
+						update=":form:msgs" />
+							<p:commandButton value="Clear" action="#{userBean2.clear}"
+						ajax="false" validateClient="true"
+						style="font-size: 12px; font-weight: bold; float:left;"
+						update=":form:msgs" />
+				</h:panelGroup>
+
+
+
+				<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+
+				<p:spacer height="10px" />
+				<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+				
+			</h:panelGroup>
+		</h:panelGroup>
+		<ui:include src="/common/footer.xhtml"></ui:include>
+	</h:form>
+
+
+
+
+</h:body>
+
+</html>

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+<h:head>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+</h:head>
+<f:view contentType="text/html" locale="en">
+
+	<pe:head title="#{msg['lbl.header']}">
+		<f:facet name="first">
+			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+			<meta http-equiv="pragma" content="no-cache" />
+			<meta http-equiv="cache-control" content="no-cache" />
+			<meta http-equiv="expires" content="0" />
+		</f:facet>
+	</pe:head>
+</f:view>
+<h:body>
+	<p:tooltip />
+	<h:form name="form" id="form">
+		<ui:include src="/common/header.xhtml"></ui:include>
+		<ui:include src="/common/menu.xhtml"></ui:include>
+
+		<h:panelGroup layout="block" styleClass="main_div1">
+			<p:messages id="msgs" showDetail="false" autoUpdate="true"
+				closable="true" />
+			<f:event listener="#{weeklyReportBean.showListReport}"
+				type="preRenderView"></f:event>
+			<h:panelGroup layout="block" styleClass="main_div2">
+				<h1>
+					<h:outputText id="title" value="Search Old Reports" />
+				</h1>
+
+				<h:panelGroup layout="block" styleClass="left_col">
+					<h:panelGroup layout="block" styleClass="inner_left_col">
+						<h:outputText value="Choose the meeting:*" />
+					</h:panelGroup>
+
+
+					<h:panelGroup layout="block" styleClass="inner_right_col">
+
+						<p:selectOneMenu id="meet" value="#{weeklyReportBean.meetID}"
+							style="margin-bottom:7px; margin-top:7px;" required="true"
+							requiredMessage="Meeting ID can't be empty">
+							<f:selectItem itemLabel="Please select a meeting" itemValue="" />
+							<f:selectItems value="#{weeklyReportBean.meetListM.entrySet()}"
+								var="qa" itemLabel="#{qa.value}" itemValue="#{qa.key}" />
+
+						</p:selectOneMenu>
+					</h:panelGroup>
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" styleClass="left_col"
+					rendered="#{facesBeanMenu.master}">
+					<h:panelGroup layout="block" styleClass="inner_left_col">
+						<h:outputText value="Team/Dept:" />
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="inner_right_col">
+						<p:selectOneMenu id="dept" value="#{weeklyReportBean.deptSID}"
+							style="margin-bottom:7px; margin-top:7px;" filter="true"
+							filterMatchMode="startsWith">
+							<f:selectItem itemLabel="" itemValue="0" />
+							<f:selectItems
+								value="#{weeklyReportBean.userDeptListM.entrySet()}" var="qa"
+								itemLabel="#{qa.value}" itemValue="#{qa.key}" />
+							<p:ajax update=":form:msgs" event="blur" />
+
+						</p:selectOneMenu>
+					</h:panelGroup>
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" styleClass="left_col">
+					<h:panelGroup layout="block" styleClass="inner_left_col">
+						<h:outputText value="From Date:" />
+					</h:panelGroup>
+
+
+					<h:panelGroup layout="block" styleClass="inner_right_col">
+
+						<p:calendar id="reqfromdate" value="#{weeklyReportBean.fromDate}" />
+					</h:panelGroup>
+				</h:panelGroup>
+
+
+				<h:panelGroup layout="block" styleClass="left_col">
+					<h:panelGroup layout="block" styleClass="inner_left_col">
+						<h:outputText value="To Date:" />
+					</h:panelGroup>
+
+
+					<h:panelGroup layout="block" styleClass="inner_right_col">
+
+						<p:calendar id="reqtodate" value="#{weeklyReportBean.toDate}" />
+					</h:panelGroup>
+				</h:panelGroup>
+
+
+
+
+				<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+				<p:spacer height="10px;" />
+
+				<h:panelGroup layout="block" styleClass="mcenter">
+					<p:commandButton value="Submit"
+						action="#{weeklyReportBean.searchReport}" ajax="false"
+						validateClient="true"
+						style="font-size: 12px; font-weight: bold; float:left;"
+						update=":form:msgs" />
+
+					<p:commandButton value="Clear" action="#{weeklyReportBean.clear}"
+						ajax="false" validateClient="true"
+						style="font-size: 12px; font-weight: bold; float:left;"
+						update=":form:msgs" />
+				</h:panelGroup>
+
+
+				<p:panel id="main">
+					<h:panelGroup layout="block" styleClass="main_div2">
+						<p:tabView value="#{weeklyReportBean.weeklyReportArchive}"
+							var="wReport" scrollable="true">
+							<p:tab title="#{wReport.created}">
+								<!-- <h:outputText escape="false"
+									value="#{weeklyReportBean.formatData(wReport.reportdata)}" /> -->
+								<p:textEditor id="editor" widgetVar="editorWidget"
+									value="#{wReport.reportdata}" style="border:1px solid #000000"
+									placeholder="Enter your content" readonly="true"
+									toolbarVisible="false" />
+
+								<h:panelGroup layout="block" styleClass="mcenter">
+
+									<p:commandButton value="Print" type="button" icon="pi pi-print"
+										style="display:block;margin-bottom: 20px">
+										<p:printer target="editor" />
+									</p:commandButton>
+								</h:panelGroup>
+							</p:tab>
+
+						</p:tabView>
+
+
+
+					</h:panelGroup>
+
+				</p:panel>
+				<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+				<p:spacer height="10px;" />
+
+
+
+
+				<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+
+				<p:spacer height="10px" />
+				<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+
+			</h:panelGroup>
+
+		</h:panelGroup>
+		<ui:include src="/common/footer.xhtml"></ui:include>
+	</h:form>
+
+
+
+
+</h:body>
+
+</html>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+</h:head>
+
+<h:body>
+	<h:form name="form" id="form">
+		<ui:include src="/common/header.xhtml"></ui:include>
+		<ui:include src="/common/menu.xhtml"></ui:include>
+
+		<h:panelGroup layout="block" styleClass="main_div1">
+			<p:messages id="messages" showDetail="true" closable="true" />
+			<f:event listener="#{requestFormBean.loadList}" type="preRenderView"></f:event>
+
+
+			<h:panelGroup layout="block" styleClass="main_div2">
+				<h1>
+					<h:outputText value="#{msg['lbl.requeststatus']}" />
+				</h1>
+
+	<p:dataTable var="proDt" value="#{requestFormBean.processListByEmpAndStatus}"
+						id="reqId" rowKey="#{requestFormBean.empno}"
+						rowIndexVar="rowIndex" rows="10" paginator="true" editable="true">
+
+
+						<p:column headerText="S.No">
+												#{rowIndex+1}
+			
+											</p:column>
+						<p:column headerText="Emp Num">
+							
+									<h:outputText value="#{proDt.empNumber}" />
+								
+						
+						</p:column>
+					
+						
+						<p:column headerText="Request">
+							<h:outputText value="#{requestFormBean.getReNameById(proDt.requestedId)}" />
+						</p:column>
+						
+							<p:column headerText="User Remarks">
+							<h:outputText value="#{proDt.userRemarks}" />
+						</p:column>
+
+                         	<p:column headerText="Status">
+							<h:outputText value="#{proDt.status}" />
+						</p:column>
+
+						
+						<!--  	<p:column  headerText="Delete">
+           	<h:commandLink value=""
+								action="#{createReqBean.requestDelete(reqDt)}" style="background:url('../images/delete.png') left no-repeat  !important; padding:3px 10px 3px 20px !important " 
+								immediate="true"/>
+			</p:column> -->
+
+					</p:dataTable>
+
+
+
+
+			</h:panelGroup>
+
+
+
+		</h:panelGroup>
+		<ui:include src="/common/footer.xhtml"></ui:include>
+	</h:form>
+
+
+
+
+</h:body>
+
+</html>

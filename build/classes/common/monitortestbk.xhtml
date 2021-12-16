@@ -1,0 +1,331 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/common2/template.xhtml">
+
+
+
+	<ui:define name="content">
+
+		<script type="text/javascript">
+
+                function start() {
+
+                     PF('statusDialog').show();
+
+                }
+
+ 
+
+                function stop() {
+
+                     PF('statusDialog').hide();
+
+                }
+
+           </script>
+
+
+
+
+
+		<style>
+.ui-organigram .ui-organigram-node.status {
+	background: #93e7ff;
+	background: -moz-linear-gradient(top, #93e7ff 0%, #007efc 100%);
+	background: -webkit-linear-gradient(top, #93e7ff 0%, #007efc 100%);
+	background: linear-gradient(to bottom, #93e7ff 0%, #007efc 100%);
+	height: 110px;
+	width: 110px;
+	border-radius: 50%;
+	display: inline-block;
+	align-content: center;
+	padding-top: 20px;
+}
+
+.ui-organigram .ui-organigram-node.database-noalter {
+	background: #88c048;
+	background: -moz-linear-gradient(top, #88c048 0%, #69a038 100%);
+	background: -webkit-linear-gradient(top, #88c048 0%, #69a038 100%);
+	background: linear-gradient(to bottom, #88c048 0%, #69a038 100%);
+}
+
+.ui-organigram .ui-organigram-node.database-proactive {
+	background: orange;
+	background: -moz-linear-gradient(top, orange 0%, #fcba03 100%);
+	background: -webkit-linear-gradient(top, orange 0%, #fcba03 100%);
+	background: linear-gradient(to bottom, orange 0%, #fcba03 100%);
+}
+
+.ui-organigram .ui-organigram-node.database-action {
+	background: red;
+	background: -moz-linear-gradient(top, red 0%, #a10616 100%);
+	background: -webkit-linear-gradient(top, red 0%, #a10616 100%);
+	background: linear-gradient(to bottom, red 0%, #a10616 100%);
+}
+</style>
+
+
+
+		<h:form enctype="multipart/form-data" name="form" id="form">
+
+			<p:poll interval="300" listener="#{drMonBean.start}"
+				update="tablelist" widgetVar="myPoll" autoStart="false" />
+
+
+
+			<div class="ui-g ui-fluid">
+
+				<div class="ui-g-12">
+
+					<div class="card card-w-title">
+
+
+
+						<p:growl id="msgs" showDetail="false" sticky="true" />
+
+						<f:event listener="#{drMonBean.showList}" type="preRenderView"></f:event>
+
+
+
+						<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
+							width="250">
+
+							<p:commandButton value="Yes" type="button"
+								styleClass="ui-confirmdialog-yes GreenButton"
+								icon="ui-icon-check" />
+
+							<p:commandButton value="No" type="button"
+								styleClass="ui-confirmdialog-no RedButton" icon="ui-icon-close" />
+
+						</p:confirmDialog>
+
+
+
+						<p:dialog modal="true" widgetVar="statusDialog"
+							header="Uploading.." draggable="false" closable="false"
+							resizable="false">
+
+							<p:graphicImage
+								style="background: url(../images/ajaxloadingbar.gif)  center no-repeat !important; padding:10px 0px 7px 500px !important; margin: 10px 0px 20px 0px;" />
+
+						</p:dialog>
+
+
+
+
+
+						<h1>DR Monitoring</h1>
+
+						<div class="ui-g ui-fluid form-group">
+
+
+
+							<div class="ui-g-12 ui-md-6">
+
+								<div class="ui-inputgroup">
+
+									<p:outputLabel value="Source" for="sourceID" />
+
+									<p:selectOneMenu id="sourceID" value="#{drMonBean.source}"
+										style="margin-bottom:7px; margin-top:7px;" filter="true"
+										filterMatchMode="startsWith" required="true"
+										requiredMessage="Source Type is #{msg['lbl.mandt']}">
+
+										<f:selectItem itemLabel="On Production" itemValue="prod" />
+
+										<f:selectItem itemLabel="On DR" itemValue="dr" />
+
+									</p:selectOneMenu>
+
+
+
+								</div>
+
+							</div>
+
+
+
+							<!-- <div class="ui-g-12 ui-md-6">
+
+<div class="ui-inputgroup">
+
+                                                <p:outputLabel value="Duration" for="durID" />
+
+                                                <p:selectOneMenu id="durID" value="#{drMonBean.duration}"
+
+                                                     style="margin-bottom:7px; margin-top:7px;" filter="true"
+
+                                                     filterMatchMode="startsWith" required="true"
+
+requiredMessage="Source Type is #{msg['lbl.mandt']}">
+
+<f:selectItem itemLabel="1 min" itemValue="60" />
+
+<f:selectItem itemLabel="5 mins" itemValue="300" />
+
+<f:selectItem itemLabel="10 mins" itemValue="600" />
+
+<f:selectItem itemLabel="15 mins" itemValue="900" />
+
+<f:selectItem itemLabel="20 mins" itemValue="1200" />
+
+<f:selectItem itemLabel="25 mins" itemValue="1500" />
+
+                                                </p:selectOneMenu>
+
+ 
+
+</div>
+
+</div> -->
+
+							<div class="ui-g-12 ui-md-6"></div>
+
+
+
+							<div class="ui-g-12 ui-md-6">
+
+								<!-- onclick="PrimeFaces.monitorDownload(start, stop);"
+
+onstart="showAjaxActive();" onstop="hideAjaxActive();" -->
+
+								<p:commandButton value="Start Process"
+									action="#{drMonBean.start}" onclick="PF('myPoll').start();"
+									id="ini2" update="organigram msgs tablelist" icon="ui-icon-">
+
+									<p:confirm header="Confirmation"
+										message="Are you sure to proceed?" icon="ui-icon-warning" />
+
+
+
+								</p:commandButton>
+
+							</div>
+
+
+
+
+
+							<div class="ui-g-12 ui-md-6">
+
+								<!-- onclick="PrimeFaces.monitorDownload(start, stop);"
+
+onstart="showAjaxActive();" onstop="hideAjaxActive();" -->
+
+								<p:commandButton value="Stop Process" action="#{drMonBean.stop}"
+									onclick="PF('myPoll').stop();" id="ini"
+									update="organigram msgs tablelist" icon="ui-icon-">
+
+									<p:confirm header="Confirmation"
+										message="Are you sure to proceed?" icon="ui-icon-warning" />
+
+								</p:commandButton>
+
+							</div>
+
+						</div>
+
+					</div>
+
+
+
+					<div class="card card-w-title">
+
+
+
+						<p:panel id="tablelist" toggleable="true" toggleSpeed="500"
+							closeSpeed="500" widgetVar="panel2" style="margin-bottom:20px">
+
+
+
+							<h1>Status - Last Update: #{drMonBean.getDate}</h1>
+
+
+
+							<p:organigram id="organigram" widgetVar="organigram"
+								value="#{drMonBean.rootNode}" var="node"
+								leafNodeConnectorHeight="#{drMonBean.leafNodeConnectorHeight}"
+								autoScrollToSelection="#{drMonBean.autoScrollToSelection}"
+								zoom="#{drMonBean.zoom}" selection="#{drMonBean.selection}"
+								style="#{drMonBean.style}">
+
+
+
+
+
+								<p:organigramNode>
+
+									<h:outputText value="#{node.data}" />
+
+								</p:organigramNode>
+
+
+
+								<p:organigramNode type="root" style="border-radius: 30px;">
+
+									<h:outputText value="#{node.data}" />
+
+								</p:organigramNode>
+
+
+
+								<p:organigramNode type="status" styleClass="status"
+									icon="pi pi-briefcase" iconPos="left">
+
+									<h:outputText value="#{node.data}" />
+
+								</p:organigramNode>
+
+
+
+								<p:organigramNode type="database-noalter"
+									styleClass="database-noalter" icon="pi pi-user">
+
+									<h:outputText value="#{node.data}" />
+
+								</p:organigramNode>
+
+
+
+								<p:organigramNode type="database-proactive"
+									styleClass="database-proactive" icon="pi pi-user">
+
+									<h:outputText value="#{node.data}" />
+
+								</p:organigramNode>
+
+
+
+								<p:organigramNode type="database-action"
+									styleClass="database-action" icon="pi pi-user">
+
+									<h:outputText value="#{node.data}" />
+
+								</p:organigramNode>
+
+							</p:organigram>
+
+
+
+
+						</p:panel>
+
+					</div>
+
+				</div>
+
+			</div>
+
+
+
+		</h:form>
+
+
+
+	</ui:define>
+
+
+
+</ui:composition>

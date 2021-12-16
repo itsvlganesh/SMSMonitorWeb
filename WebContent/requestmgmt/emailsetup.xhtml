@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+</h:head>
+
+<h:body>
+	<h:form name="form" id="formL">
+		<ui:include src="/common/header.xhtml"></ui:include>
+		<ui:include src="/common/menu.xhtml"></ui:include>
+
+		<h:panelGroup layout="block" styleClass="main_div1">
+			<p:messages id="messages" showDetail="true" closable="true" />
+			<f:event listener="#{emailBean.showList}" type="preRenderView"></f:event>
+
+
+			<h:panelGroup layout="block" styleClass="main_div2">
+				<h2>
+					<h:outputText value="#{msg['lbl.emailsetup']}" />
+				</h2>
+
+				<h:panelGroup layout="block" styleClass="left_col">
+
+					<p:row>
+						<h:panelGroup layout="block" styleClass="inner_left_col">
+							<p:column>
+								<h:outputText value="#{msg['lbl.chooserequests']}" />
+							</p:column>
+						</h:panelGroup>
+
+						<h:panelGroup layout="block" styleClass="inner_right_col">
+							<p:column>
+								<p:selectOneMenu id="request" value="#{emailBean.requestId}"
+									required="true" requiredMessage="*No Request Selected">
+									<f:selectItems
+										value="#{emailBean.requestListDetails.entrySet()}" var="qa"
+										itemLabel="#{qa.value}" itemValue="#{qa.key}" />
+								</p:selectOneMenu>
+							</p:column>
+						</h:panelGroup>
+					</p:row>
+
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" styleClass="left_col">
+
+					<p:row>
+						<h:panelGroup layout="block" styleClass="inner_left_col">
+							<p:column>
+								<h:outputText value="#{msg['lbl.approverE']}" />
+							</p:column>
+						</h:panelGroup>
+
+						<h:panelGroup layout="block" styleClass="inner_right_col">
+							<p:column>
+								<p:inputText id="apprverE" required="true"
+									requiredMessage="#{msg['lbl.empty']}"
+									value="#{emailBean.approverEmailId}"
+									validatorMessage="#{msg['lbl.validemail']}">
+									<f:validateRegex
+										pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+									<p:ajax update="messages" event="blur" />
+								</p:inputText>
+							</p:column>
+						</h:panelGroup>
+					</p:row>
+
+				</h:panelGroup>
+				<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+				<p:spacer height="10px;" />
+				<h:panelGroup layout="block" styleClass="left_col">
+
+					<p:row>
+						<h:panelGroup layout="block" styleClass="inner_left_col">
+							<p:column>
+								<h:outputText value="#{msg['lbl.providerE']}" />
+							</p:column>
+						</h:panelGroup>
+
+						<h:panelGroup layout="block" styleClass="inner_right_col">
+							<p:column>
+								<p:inputText id="providerE" value="#{emailBean.providerEmailid}"
+									validatorMessage="#{msg['lbl.validemail']}">
+									<f:validateRegex
+										pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+									<p:ajax update="messages" event="blur" />
+								</p:inputText>
+
+							</p:column>
+						</h:panelGroup>
+					</p:row>
+
+				</h:panelGroup>
+
+
+				<h:panelGroup layout="block" styleClass="left_col">
+
+					<p:row>
+						<h:panelGroup layout="block" styleClass="inner_left_col">
+							<p:column>
+								<h:outputText value="#{msg['lbl.cc']}" />
+							</p:column>
+						</h:panelGroup>
+
+						<h:panelGroup layout="block" styleClass="inner_right_col">
+							<p:column>
+								<p:inputText id="cc" required="true"
+									requiredMessage="#{msg['lbl.empty']}"
+									value="#{emailBean.ccEmailId}"
+									validatorMessage="#{msg['lbl.validemail']}">
+									<f:validateRegex
+										pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+									<p:ajax update="messages" event="blur" />
+								</p:inputText>
+							</p:column>
+						</h:panelGroup>
+					</p:row>
+
+				</h:panelGroup>
+
+
+
+
+				<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+				<p:spacer height="10px;" />
+				<h:panelGrid styleClass="panelGridCenter">
+
+
+					<p:row>
+						<p:column styleClass="red">
+						</p:column>
+
+						<p:column styleClass="red">
+							<p:commandButton type="submit" value="Submit"
+								action="#{emailBean.requestInsert}" ajax="false"
+								icon="ui-icon-check" validateClient="true"
+								style="font-size: 12px; font-weight: bold; float:left;"
+								update=":formL::messages" />
+
+						</p:column>
+					</p:row>
+
+				</h:panelGrid>
+
+
+
+
+				<p:spacer height="30px"></p:spacer>
+
+
+
+
+
+				<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+				<p:spacer height="10px" />
+				<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+
+
+				<p:dataTable var="emailDt" value="#{emailBean.emailList}"
+					id="emailId" rowKey="#{emailBean.requestId}" rowIndexVar="rowIndex"
+					rows="10" paginator="true" editable="true">
+
+					<p:ajax event="rowEdit" listener="#{emailBean.onRowEdit}"
+						update=":formL:messages" />
+					<p:ajax event="rowEditCancel" listener="#{emailBean.onRowCancel}"
+						update=":formL:messages" />
+
+					<p:column headerText="S.No">
+												#{rowIndex+1}
+			
+											</p:column>
+
+
+
+					<p:column headerText="Request">
+						<h:outputText
+							value="#{requestFormBean.getReNameById(emailDt.requestId)}" />
+					</p:column>
+
+					<p:column headerText="Approver Email">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{emailDt.approverEmail}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{emailDt.approverEmail}" />
+							</f:facet>
+						</p:cellEditor>
+
+
+					</p:column>
+
+
+					<p:column headerText="Provider Email">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{emailDt.provideEmail}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{emailDt.provideEmail}" />
+							</f:facet>
+						</p:cellEditor>
+
+
+
+					</p:column>
+
+
+					<p:column headerText="Copy To Email">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{emailDt.copyToEmail}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{emailDt.copyToEmail}" />
+							</f:facet>
+						</p:cellEditor>
+
+
+
+					</p:column>
+					<p:column headerText="Edit" style="width:20px;text-align:center">
+
+						<p:rowEditor />
+					</p:column>
+				</p:dataTable>
+
+
+
+
+			</h:panelGroup>
+
+
+
+		</h:panelGroup>
+		<ui:include src="/common/footer.xhtml"></ui:include>
+	</h:form>
+
+
+
+
+</h:body>
+
+</html>

@@ -1,0 +1,89 @@
+CREATE TABLE `userprofile` (
+  `empID` decimal(10,0) NOT NULL,
+  `userName` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `roleID` int(6) NOT NULL,
+  `deptID` int(6) NOT NULL,
+  `groupID` int(6) NOT NULL,
+  `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified` datetime DEFAULT CURRENT_TIMESTAMP,
+  `status` varchar(1) CHARACTER SET utf8 NOT NULL,
+  PRIMARY KEY (`empID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+CREATE TABLE `userdept` (
+  `deptID` int(6) NOT NULL AUTO_INCREMENT,
+  `deptName` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified` datetime DEFAULT CURRENT_TIMESTAMP,
+  `status` varchar(1) CHARACTER SET utf8 NOT NULL,
+  `emailIds` varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`deptID`),
+  UNIQUE KEY `deptName_UNIQUE` (`deptName`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+CREATE TABLE `usergroup` (
+  `groupID` int(6) NOT NULL AUTO_INCREMENT,
+  `groupName` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` varchar(1) CHARACTER SET utf8 NOT NULL,
+  PRIMARY KEY (`groupID`),
+  UNIQUE KEY `groupName_UNIQUE` (`groupName`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+
+CREATE TABLE `userrole` (
+  `roleID` int(6) NOT NULL AUTO_INCREMENT,
+  `roleName` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified` datetime DEFAULT CURRENT_TIMESTAMP,
+  `status` varchar(1) CHARACTER SET utf8 NOT NULL,
+  PRIMARY KEY (`roleID`),
+  UNIQUE KEY `roleName_UNIQUE` (`roleName`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+CREATE TABLE `weeklyreport` (
+  `reportdata` varchar(2000) COLLATE utf8_unicode_ci NOT NULL,
+  `createdBY` decimal(10,0) NOT NULL,
+  `approverID` decimal(10,0) DEFAULT NULL,
+  `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified` datetime DEFAULT CURRENT_TIMESTAMP,
+  `status` char(1) CHARACTER SET utf8 NOT NULL,
+  `deptID` int(6) NOT NULL,
+  `meetID` int(11) NOT NULL,
+  `reportID` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`reportID`),
+  UNIQUE KEY `uc_dept_meet_status` (`status`,`deptID`,`meetID`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+CREATE TABLE `weeklyreport_archive` (
+  `reportdata` varchar(2000) COLLATE utf8_unicode_ci NOT NULL,
+  `createdBY` decimal(10,0) NOT NULL,
+  `approverID` decimal(10,0) DEFAULT NULL,
+  `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified` datetime DEFAULT CURRENT_TIMESTAMP,
+  `status` char(1) CHARACTER SET utf8 NOT NULL,
+  `deptID` int(6) NOT NULL,
+  `meetID` int(11) NOT NULL,
+  `reportID` int(11) NOT NULL,
+  PRIMARY KEY (`reportID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE `meetings` (
+  `meetID` int(6) NOT NULL AUTO_INCREMENT,
+  `meetCycle` int(6),
+  `meetName` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `meetDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified` datetime DEFAULT CURRENT_TIMESTAMP,
+  `status` varchar(1) CHARACTER SET utf8 NOT NULL,
+  PRIMARY KEY (`meetID`),
+  UNIQUE KEY `meetName_UNIQUE` (`meetName`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+

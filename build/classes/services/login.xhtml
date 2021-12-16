@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+</h:head>
+
+<h:body>
+
+	<ui:include src="/common/loginheader.xhtml"></ui:include>
+	<h:form id="loginForm">
+		<p:messages id="mes" showDetail="true" autoUpdate="true"
+			closable="true" />
+		<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+		<p:spacer height="20px;" />
+		<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+		<h:panelGroup layout="block" styleClass="login_main_div1">
+			<!-- <f:event listener="#{loginBean.connDb}" type="preRenderView"></f:event> -->
+			<h:panelGroup layout="block" styleClass="main_div2">
+
+
+				<h:outputText
+					value="Note: This site is best viewed in Google Chrome or Safari"
+					style="color:red;font-size: larger" />
+				<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+				<p:spacer height="10px;" />
+				<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+				<p:spacer height="10px;" />
+				<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+				<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+				<h1
+					style="background: url(../images/user.png) left center no-repeat !important; padding: 10px 0px 7px 55px !important; margin: 10px 0px 20px 0px;">
+					<h:outputText value="Common Login" />
+				</h1>
+
+
+				<br />
+				<br />
+
+				<h:panelGroup layout="block" styleClass="login_col_1">
+					<h:outputText
+						value="Enter your Employee Number* below and click on the Go button" />
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" styleClass="login_col_2">
+					<p:inputText id="empno" required="true" value="#{userBean.empNo}"
+						requiredMessage="Enter Employee No." />
+					<p:message for="empno" showDetail="true" />
+
+					<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+					<p:spacer height="10px;" />
+
+					<h:panelGroup layout="block" styleClass="tealri">
+						<p:commandButton value="Go" ajax="false" update="mes"
+							action="#{userBean.goAction()}" />
+					</h:panelGroup>
+
+				</h:panelGroup>
+				<h:panelGroup layout="block" styleClass="clearfix"
+					style="margin: 0 auto;text-align:center">
+					<h:outputText value="OR" style="font-size: 250%" />
+				</h:panelGroup>
+				<h1
+					style="background: url(../images/user.png) left center no-repeat !important; padding: 10px 0px 7px 55px !important; margin: 10px 0px 20px 0px;">
+					<h:outputText value="User Login" />
+				</h1>
+
+				<h:panelGroup layout="block" styleClass="login_col_1">
+					<h:outputText value="Username * :" />
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" styleClass="login_col_2">
+					<p:inputText id="username" requiredMessage="Enter Username" />
+					<p:message for="username" showDetail="true" />
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" styleClass="login_col_1">
+					<h:outputText value="Password * :" />
+				</h:panelGroup>
+				<h:panelGroup layout="block" styleClass="login_col_2">
+					<p:password id="password" requiredMessage="Enter Password">
+						<p:message for="password" showDetail="true" />
+					</p:password>
+
+				</h:panelGroup>
+				<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+				<p:spacer height="10px;" />
+
+
+				<h:panelGroup layout="block" styleClass="tealri">
+					<p:commandButton value="Login" ajax="false" update="mes"
+						action="welcome.xhtml" />
+				</h:panelGroup>
+				<h:panelGroup layout="block" styleClass="login_col_1">
+					<h:outputText value="Required fields are marked as *"
+						style="color:red;font-size: larger" />
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+			</h:panelGroup>
+			<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+		</h:panelGroup>
+		<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+		<p:spacer height="20px;" />
+		<h:panelGroup layout="block" styleClass="clearfix"></h:panelGroup>
+		<ui:include src="/common/footer.xhtml"></ui:include>
+	</h:form>
+</h:body>
+
+</html>
