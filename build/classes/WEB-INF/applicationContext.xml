@@ -43,8 +43,8 @@
 	
  	<bean id="dataSource" destroy-method="close"
 		class="org.apache.commons.dbcp.BasicDataSource">
-		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/SRS" />
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
 		<property name="username" value="${jdbc.username}" />
 		<property name="password" value="${jdbc.password}" />
 		<property name="testOnBorrow" value="true" />
@@ -53,7 +53,7 @@
 		<property name="timeBetweenEvictionRunsMillis" value="1800000" />
 		<property name="numTestsPerEvictionRun" value="3" />
 		<property name="minEvictableIdleTimeMillis" value="1800000" />
-		<property name="validationQuery" value="SELECT 1 FROM DUAL" />
+		<property name="validationQuery" value="SELECT 1" />
 	</bean>
 	
 	

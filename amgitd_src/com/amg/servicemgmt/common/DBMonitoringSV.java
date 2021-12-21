@@ -84,7 +84,7 @@ public class DBMonitoringSV {
 
 	public static Connection connObj;
 
-	public static String DBCONN = "jdbc:mysql://localhost:3306/SRS";
+	public static String DBCONN = "jdbc:sqlserver://bb-moon.database.windows.net;databaseName=SMSMON";
 
 	public static String DBPass = null;
 
@@ -134,9 +134,9 @@ public class DBMonitoringSV {
 
 		try {
 
-			DBUser = "root";
+			DBUser = "dbmgmt";
 
-			DBPass = "vasa@123";
+			DBPass = "KG&sas2sv";
 
 			if (source.equalsIgnoreCase("Network")) {
 
@@ -226,7 +226,7 @@ public class DBMonitoringSV {
 
 		try {
 
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
 //                                    String password = JaspytPasswordEncryptor.getDecryptedString("12345678", "PBEWITHSHA256AND256BITAES-CBC-BC",
 //

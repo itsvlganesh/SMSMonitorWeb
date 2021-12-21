@@ -8,13 +8,13 @@ public class JaspytPasswordEncryptor {
 		
 		String jaspytEncryptionKey = "12345678";		
 		String jaspytAlgorithm = "PBEWithMD5AndDES";
-		String passwordToEncrypt = "vasa@123";
+		String passwordToEncrypt = "KG&sas2sv";
 		
 		System.out.println("Password to encrypt: "+passwordToEncrypt);
 		
 		String encryptedPassword = getEncryptedString(jaspytEncryptionKey, jaspytAlgorithm, passwordToEncrypt);		
 		System.out.println("Encrypted password: "+ encryptedPassword);
-		String decryptedPassword = getDecryptedString(jaspytEncryptionKey, jaspytAlgorithm, "8EwH6J2UfaLUgPigEIgreg/Y0XjLq9+d");
+		String decryptedPassword = getDecryptedString(jaspytEncryptionKey, jaspytAlgorithm, encryptedPassword);
 		System.out.println("Decrypted password: "+decryptedPassword);
 		
 		
