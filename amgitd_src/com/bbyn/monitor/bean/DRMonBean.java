@@ -102,9 +102,9 @@ public class DRMonBean<T> implements Serializable {
 		dbs.add("MARKETING");
 		dbs.add("OTP");
 
-		status.add("Zero Latency or No Alert (0to5Mins)");
-		status.add("Moderate Latency or Proactive (5to10Mins)");
-		status.add("Latency or Action Required (>10Mins)");
+		status.add("Zero Latency or No Alert (0to10Mins)");
+		status.add("Moderate Latency or Proactive (10to20Mins)");
+		status.add("Latency or Action Required (>30Mins)");
 
 //		STCM = new LinkedHashMap<String, String>();
 //		ZAINM = new LinkedHashMap<String, String>();

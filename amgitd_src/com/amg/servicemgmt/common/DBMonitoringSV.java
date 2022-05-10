@@ -84,7 +84,8 @@ public class DBMonitoringSV {
 
 	public static Connection connObj;
 
-	public static String DBCONN = "jdbc:sqlserver://bb-moon.database.windows.net;databaseName=SMSMON";
+//	public static String DBCONN = "jdbc:sqlserver://bb-moon.database.windows.net;databaseName=SMSMON";
+	public static String DBCONN = "jdbc:mysql://localhost:3306/SRS";
 
 	public static String DBPass = null;
 
@@ -134,9 +135,10 @@ public class DBMonitoringSV {
 
 		try {
 
-			DBUser = "dbmgmt";
-
-			DBPass = "KG&sas2sv";
+//			DBUser = "dbmgmt";
+//			DBPass = "KG&sas2sv";
+			DBUser = "root";
+			DBPass = "vasa@123";
 
 			if (source.equalsIgnoreCase("Network")) {
 
@@ -226,7 +228,8 @@ public class DBMonitoringSV {
 
 		try {
 
-			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+			//Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+			 Class.forName("com.mysql.jdbc.Driver");
 
 //                                    String password = JaspytPasswordEncryptor.getDecryptedString("12345678", "PBEWITHSHA256AND256BITAES-CBC-BC",
 //
@@ -269,11 +272,11 @@ public class DBMonitoringSV {
 							Date date2 = formatter.parse(rs.getString(4));
 							long diffMin = diff(date1, date2);
 							String color = "";
-							if (diffMin < 5)
+							if (diffMin <= 10)
 								color = "GREEN";
-							else if (diffMin < 10)
+							else if (diffMin > 10 && diffMin <=20 )
 								color = "YELLOW";
-							else if (diffMin >= 10)
+							else if (diffMin > 20)
 								color = "RED";
 							
 							System.out.println("rs.getString(1).toUpperCase():"+rs.getString(1).toUpperCase().replaceAll("\\s+","")+"    color:"+color);
